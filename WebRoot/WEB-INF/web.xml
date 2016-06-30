@@ -84,7 +84,7 @@
         <servlet-class>com.ideamoment.ideadp.servlet.IdeaServlet</servlet-class>
         <init-param>  
             <param-name>webRoot</param-name>  
-            <param-value>E:/iWorkspace/java/ideatest/WebRoot</param-value>  
+            <param-value>E:/iWorkspace/java/ideatesting/WebRoot</param-value>  
         </init-param>   
         <load-on-startup>1</load-on-startup> 
     </servlet>
@@ -158,6 +158,6 @@
     </jsp-config>
     
     <welcome-file-list>   
-        <welcome-file>/dashboard</welcome-file>   
+        <welcome-file>/</welcome-file>   
     </welcome-file-list>
 </web-app>
