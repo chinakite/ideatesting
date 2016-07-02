@@ -20,7 +20,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public ModelAndView dashboard() {
-        return new ModelAndView("/WEB-INF/jsp/project/noproject.jsp");
+    public String index() {
+        return "redirect:/project/1/dashboard";
     }
 }

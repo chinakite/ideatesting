@@ -5,6 +5,7 @@ package com.ideamoment.ideatesting.tool;
 
 import com.ideamoment.ideajdbc.configuration.IdeaJdbcConfiguration;
 import com.ideamoment.ideajdbc.tool.mysql.entity2ddl.MySqlEntity2Ddl;
+import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.Project;
 import com.ideamoment.ideatesting.model.TestNode;
 import com.ideamoment.ideatesting.model.User;
@@ -25,11 +26,12 @@ public class GenerateDb {
         
         MySqlEntity2Ddl tool = new MySqlEntity2Ddl();
         Class[] cls = new Class[]{
-                    User.class,
-                    Project.class,
-                    TestNode.class,
-                    UserProject.class,
-                    UserLoginInfo.class
+//                    User.class,
+//                    Project.class,
+//                    TestNode.class,
+//                    UserProject.class,
+//                    UserLoginInfo.class,
+                    CaseScript.class
                 };
         
         for(Class clz : cls) {

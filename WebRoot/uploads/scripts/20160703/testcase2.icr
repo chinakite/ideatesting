@@ -1,0 +1,14 @@
+group sinamail {
+    login
+};
+
+case login {
+    get "http://mail.sina.com.cn";
+    wait 2000;
+    assert "#freename" exists;
+    assert "#freepassword" exists;
+    input "ideacaserunner@sina.com" to "#freename";
+    input "IdeaCaseRunner1" to "#freepassword";
+    click ".loginBtn";
+    click ".wrWriteBtn a" when ".wrWriteBtn a" exists timeout 5;
+};
