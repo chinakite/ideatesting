@@ -27,6 +27,20 @@ public class CaseScript extends HistoriableEntity {
 
     
     /**
+     * @return the projectId
+     */
+    public String getProjectId() {
+        return projectId;
+    }
+    
+    /**
+     * @param projectId the projectId to set
+     */
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    /**
      * @return the fileUrl
      */
     public String getFileUrl() {

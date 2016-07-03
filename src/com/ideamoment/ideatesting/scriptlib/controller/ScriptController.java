@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ideamoment.ideadp.restful.json.JsonData;
+import com.ideamoment.ideajdbc.action.Page;
+import com.ideamoment.ideatesting.BaseController;
 import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.Project;
 import com.ideamoment.ideatesting.project.service.ProjectService;
 import com.ideamoment.ideatesting.scriptlib.service.ScriptService;
+import com.ideamoment.ideatesting.util.DataTableSource;
 
 /**
  * @author Chinakite
@@ -25,7 +28,7 @@ import com.ideamoment.ideatesting.scriptlib.service.ScriptService;
  */
 @Controller
 @RequestMapping(value="/project/{projectId}")
-public class ScriptController {
+public class ScriptController extends BaseController {
     @Autowired
     private ScriptService scriptService;
     
@@ -44,7 +47,22 @@ public class ScriptController {
     
     @RequestMapping(value="/scripts", method=RequestMethod.GET)
     public JsonData listScripts(@PathVariable String projectId) {
-        List<CaseScript> projects = scriptService.listScripts(projectId);
+        List<CaseScript> projects = scriptService.listProjectScripts(projectId);
         return JsonData.success(projects);
     }
+    
+    @RequestMapping(value="/dtPageScripts", method=RequestMethod.GET)
+    public JsonData dtPageScripts(@PathVariable String projectId,
+                                  int draw, 
+                                  int start, 
+                                  int length) {
+        int curPage = start/length + 1;
+        int pageSize = length;
+        
+        Page<CaseScript> scripts = scriptService.pageProjectScripts(curPage, pageSize, projectId);
+        DataTableSource dts = convertToDataTableSource(draw, scripts);
+        return new JsonData(dts);
+    }
+
+    
 }
