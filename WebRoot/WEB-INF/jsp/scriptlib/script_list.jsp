@@ -17,6 +17,8 @@
         <link href='<idp:url value="/plugins/datatables/media/css/dataTables.bootstrap.css"/>' rel="stylesheet">
         <link href='<idp:url value="/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css"/>' rel="stylesheet">
         
+        <link href='<idp:url value="/css/ideatesting.css"/>' rel="stylesheet">
+        
         <script src='<idp:url value="/js/jquery-2.2.4.min.js"/>'></script>
         <script src='<idp:url value="/js/bootstrap.min.js"/>'></script>
         <script src='<idp:url value="/js/nifty.min.js"/>'></script>

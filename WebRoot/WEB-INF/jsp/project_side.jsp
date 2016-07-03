@@ -92,7 +92,7 @@
                                         </li>
                                         
                                         <!--Menu list item-->
-                                        <li>
+                                        <li id="menu_scriptlib">
                                             <a href="<idp:ctx/>/project/${project.id}/scriptPage">
                                                 <i class="demo-psi-file-html"></i>
                                                 <span class="menu-title">

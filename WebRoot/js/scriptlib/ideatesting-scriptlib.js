@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    $('#menu_scriptlib').siblings().removeClass('active');
+    $('#menu_scriptlib').siblings().removeClass('active-link');
+    $('#menu_scriptlib').addClass('active');
+    $('#menu_scriptlib').addClass('active-link');
+
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
     $('#demo-dt-basic').dataTable( {

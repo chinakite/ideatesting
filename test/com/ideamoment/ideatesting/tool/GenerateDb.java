@@ -28,10 +28,11 @@ public class GenerateDb {
         Class[] cls = new Class[]{
 //                    User.class,
 //                    Project.class,
-//                    TestNode.class,
+                    TestNode.class
+//                ,
 //                    UserProject.class,
 //                    UserLoginInfo.class,
-                    CaseScript.class
+//                    CaseScript.class
                 };
         
         for(Class clz : cls) {

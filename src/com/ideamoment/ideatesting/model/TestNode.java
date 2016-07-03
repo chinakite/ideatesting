@@ -22,7 +22,12 @@ public class TestNode extends HistoriableEntity {
     
     @Property(dataItem="C_STATE", type=DataItemType.VARCHAR, length=2)
     private String state;
+    
+    @Property(dataItem="C_TYPE", type=DataItemType.VARCHAR, length=2)
+    private String type;
 
+    @Property(dataItem="C_OWNER_ID", type=DataItemType.VARCHAR, length=32)
+    private String ownerId;
     
     /**
      * @return the name
@@ -64,6 +69,34 @@ public class TestNode extends HistoriableEntity {
      */
     public void setState(String state) {
         this.state = state;
+    }
+    
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+    
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    /**
+     * @return the ownerId
+     */
+    public String getOwnerId() {
+        return ownerId;
+    }
+    
+    /**
+     * @param ownerId the ownerId to set
+     */
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
     
 }
