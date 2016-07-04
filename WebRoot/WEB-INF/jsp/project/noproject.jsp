@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard</title>
+        <title>资源 - IDEA Testing</title>
         
         <link href='<idp:url value="/css/bootstrap.min.css"/>' rel="stylesheet">
         <link href='<idp:url value="/css/nifty.min.css"/>' rel="stylesheet">

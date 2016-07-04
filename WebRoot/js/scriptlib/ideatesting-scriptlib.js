@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
-    $('#demo-dt-basic').dataTable( {
+    $('#hubsTbl').dataTable( {
           "processing": true,
           "paging": true,
           "lengthChange": false,

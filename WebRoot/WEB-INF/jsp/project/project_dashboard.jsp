@@ -20,7 +20,7 @@
     </head>    
     <body>
         <div id="container" class="effect aside-float aside-bright mainnav-lg">
-            <%@ include file="../project_header.jsp"%>
+            <%@ include file="../header.jsp"%>
             
             <div class="boxed">
                 <!--CONTENT CONTAINER-->

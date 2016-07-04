@@ -27,8 +27,7 @@
         <script src='<idp:url value="/plugins/datatables/media/js/jquery.dataTables.js"/>'></script>
         <script src='<idp:url value="/plugins/datatables/media/js/dataTables.bootstrap.js"/>'></script>
         <script src='<idp:url value="/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"/>'></script>
-    </head>    
-    <body>
+    
         <script type="text/javascript">
             window.commonVars || (window.commonVars = {});
             window.scriptPageVars || (window.scriptPageVars = {});
@@ -36,9 +35,10 @@
             scriptPageVars.projectId = '${project.id}';
             
         </script>
-    
+    </head>    
+    <body>
         <div id="container" class="effect aside-float aside-bright mainnav-lg">
-            <%@ include file="../project_header.jsp"%>
+            <%@ include file="../header.jsp"%>
             
             <div class="boxed">
                 <!--CONTENT CONTAINER-->

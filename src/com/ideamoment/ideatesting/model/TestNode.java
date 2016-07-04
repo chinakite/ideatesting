@@ -6,6 +6,7 @@ package com.ideamoment.ideatesting.model;
 import com.ideamoment.ideadata.annotation.DataItemType;
 import com.ideamoment.ideadata.annotation.Entity;
 import com.ideamoment.ideadata.annotation.Property;
+import com.ideamoment.ideatesting.model.dict.TestNodeTypeDict;
 
 /**
  * @author Chinakite
@@ -99,4 +100,11 @@ public class TestNode extends HistoriableEntity {
         this.ownerId = ownerId;
     }
     
+    public String getTypeText() {
+        if(TestNodeTypeDict.HUB.equals(this.type)) {
+            return TestNodeTypeDict.HUB_TEXT;
+        }else{
+            return TestNodeTypeDict.NODE_TEXT;
+        }
+    }
 }

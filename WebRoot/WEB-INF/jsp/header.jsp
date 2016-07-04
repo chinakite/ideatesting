@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="utf-8"%>            
+<%@ page language="java" pageEncoding="utf-8"%>              
             <!--NAVBAR-->
             <!--===================================================-->
             <header id="navbar">
@@ -24,8 +24,7 @@
                             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">
-                                    <i class="demo-pli-layout-grid">项目</i>
-                                    <span class="badge badge-header badge-danger"></span>
+                                    <i class="demo-pli-layout-grid"></i><span> 项目</span>
                                 </a>
     
                                 <!--Notification dropdown menu-->
@@ -167,36 +166,15 @@
                             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                             <li class="mega-dropdown">
                                 <a href="#" class="mega-dropdown-toggle">
-                                    <i class="demo-pli-desktop">资源</i>
+                                    <i class="demo-psi-split-vertical-2"></i><span> 资源</span>
                                 </a>
                                 <div class="dropdown-menu mega-dropdown-menu">
                                     <div class="row">
-                                        <div class="col-sm-4 col-md-3">
+                                        <div class="col-sm-6 col-md-5">
     
                                             <!--Mega menu list-->
                                             <ul class="list-unstyled">
-                                                <li class="dropdown-header"><i class="demo-pli-file icon-fw"></i> Pages</li>
-                                                <li><a href="#">Profile</a></li>
-                                                <li><a href="#">Search Result</a></li>
-                                                <li><a href="#">FAQ</a></li>
-                                                <li><a href="#">Sreen Lock</a></li>
-                                                <li><a href="#" class="disabled">Disabled</a></li>                                        </ul>
-    
-                                        </div>
-                                        <div class="col-sm-4 col-md-3">
-    
-                                            <!--Mega menu list-->
-                                            <ul class="list-unstyled">
-                                                <li class="dropdown-header"><i class="demo-pli-mail icon-fw"></i> Mailbox</li>
-                                                <li><a href="#"><span class="pull-right label label-danger">Hot</span>Indox</a></li>
-                                                <li><a href="#">Read Message</a></li>
-                                                <li><a href="#">Compose</a></li>
-                                            </ul>
-                                            <p class="pad-top mar-top bord-top text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-                                        </div>
-                                        <div class="col-sm-4 col-md-3">
-                                            <!--Mega menu list-->
-                                            <ul class="list-unstyled">
+                                                <li class="dropdown-header"><i class="demo-pli-file icon-fw"></i> Hubs</li>
                                                 <li>
                                                     <a href="#" class="media mar-btm">
                                                         <span class="badge badge-success pull-right">90%</span>
@@ -244,30 +222,77 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="col-sm-12 col-md-3">
-                                            <p class="dropdown-header"><i class="demo-pli-file-jpg icon-fw"></i> Gallery</p>
-                                            <ul class="list-unstyled list-inline text-justify">
+                                        <div class="col-sm-6 col-md-5">
     
-                                                <li class="pad-btm">
-                                                    <img src="img//thumbs/mega-menu-2.jpg" alt="thumbs">
+                                            <!--Mega menu list-->
+                                            <ul class="list-unstyled">
+                                                <li class="dropdown-header"><i class="demo-pli-file icon-fw"></i> Nodes</li>
+                                                <li>
+                                                    <a href="#" class="media mar-btm">
+                                                        <span class="badge badge-success pull-right">90%</span>
+                                                        <div class="media-left">
+                                                            <i class="demo-pli-data-settings icon-2x"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p class="text-semibold text-dark mar-no">Data Backup</p>
+                                                            <small class="text-muted">This is the item description</small>
+                                                        </div>
+                                                    </a>
                                                 </li>
-                                                <li class="pad-btm">
-                                                    <img src="img//thumbs/mega-menu-3.jpg" alt="thumbs">
+                                                <li>
+                                                    <a href="#" class="media mar-btm">
+                                                        <div class="media-left">
+                                                            <i class="demo-pli-support icon-2x"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p class="text-semibold text-dark mar-no">Support</p>
+                                                            <small class="text-muted">This is the item description</small>
+                                                        </div>
+                                                    </a>
                                                 </li>
-                                                <li class="pad-btm">
-                                                    <img src="img//thumbs/mega-menu-1.jpg" alt="thumbs">
+                                                <li>
+                                                    <a href="#" class="media mar-btm">
+                                                        <div class="media-left">
+                                                            <i class="demo-pli-computer-secure icon-2x"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p class="text-semibold text-dark mar-no">Security</p>
+                                                            <small class="text-muted">This is the item description</small>
+                                                        </div>
+                                                    </a>
                                                 </li>
-                                                <li class="pad-btm">
-                                                    <img src="img//thumbs/mega-menu-4.jpg" alt="thumbs">
-                                                </li>
-                                                <li class="pad-btm">
-                                                    <img src="img//thumbs/mega-menu-5.jpg" alt="thumbs">
-                                                </li>
-                                                <li class="pad-btm">
-                                                    <img src="img//thumbs/mega-menu-6.jpg" alt="thumbs">
+                                                <li>
+                                                    <a href="#" class="media mar-btm">
+                                                        <div class="media-left">
+                                                            <i class="demo-pli-map-2 icon-2x"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p class="text-semibold text-dark mar-no">Location</p>
+                                                            <small class="text-muted">This is the item description</small>
+                                                        </div>
+                                                    </a>
                                                 </li>
                                             </ul>
-                                            <a href="#" class="btn btn-sm btn-block btn-default">Browse Gallery</a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <!--Mega menu list-->
+                                            <ul class="list-unstyled">
+                                                <li class="col-md-12 col-sm-4 pad-hor mar-btm">
+                                                    <a href="#" class="btn btn-sm btn-block btn-default">
+                                                        <span> 新建Hub</span>
+                                                    </a>
+                                                </li>
+                                                <li class="col-md-12 col-sm-4 pad-hor mar-btm">
+                                                    <a href="#" class="btn btn-sm btn-block btn-default">
+                                                        <span> 新建Node</span>
+                                                    </a>
+                                                </li>
+                                                <li class="col-md-12 col-sm-4 pad-hor mar-top">
+                                                    <a href="<idp:ctx/>/resource/" target="_blank" class="btn btn-sm btn-block btn-default">
+                                                        <span> 查看所有资源</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +301,7 @@
                             <!--End mega dropdown-->
     
                         </ul>
-                    
+                        
                         <ul class="nav navbar-top-links pull-right">
 
                             <!--User dropdown-->
