@@ -30,6 +30,12 @@ public class TestNode extends HistoriableEntity {
     @Property(dataItem="C_OWNER_ID", type=DataItemType.VARCHAR, length=32)
     private String ownerId;
     
+    @Property(dataItem="C_ADDRESS", type=DataItemType.VARCHAR, length=30)
+    private String address;
+    
+    @Property(dataItem="C_PORT", type=DataItemType.VARCHAR, length=10)
+    private String port;
+    
     /**
      * @return the name
      */
@@ -100,6 +106,34 @@ public class TestNode extends HistoriableEntity {
         this.ownerId = ownerId;
     }
     
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return the port
+     */
+    public String getPort() {
+        return port;
+    }
+    
+    /**
+     * @param port the port to set
+     */
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     public String getTypeText() {
         if(TestNodeTypeDict.HUB.equals(this.type)) {
             return TestNodeTypeDict.HUB_TEXT;

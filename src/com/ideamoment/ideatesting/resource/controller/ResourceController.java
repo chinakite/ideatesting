@@ -5,7 +5,6 @@ package com.ideamoment.ideatesting.resource.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,6 +43,13 @@ public class ResourceController extends BaseController {
         Page<TestNode> scripts = resourceService.pageHubs(curPage, pageSize, ownerId);
         DataTableSource dts = convertToDataTableSource(draw, scripts);
         return new JsonData(dts);
+    }
+    
+    @RequestMapping(value="/hub", method=RequestMethod.POST)
+    public JsonData addHub(TestNode node) {
+        System.out.println(node.getName());
+        
+        return JsonData.SUCCESS;
     }
     
     @RequestMapping(value="/dtPageNodes", method=RequestMethod.GET)

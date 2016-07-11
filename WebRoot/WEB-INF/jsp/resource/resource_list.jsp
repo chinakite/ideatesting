@@ -90,7 +90,7 @@
                                                 <div class="pad-btm form-inline">
                                                     <div class="row">
                                                         <div class="col-sm-6 table-toolbar-left">
-                                                            <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
+                                                            <button class="btn btn-purple" onclick="IDEATESTING.resource.popAddHubModal();"><i class="demo-pli-add icon-fw"></i>新建Hub</button>
                                                             <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
                                                             <div class="btn-group">
                                                                 <button class="btn btn-default"><i class="demo-pli-information"></i></button>
@@ -120,12 +120,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="table-responsive">
+                                                <div>
                                                     <table id="hubsTbl" class="table table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
                                                                 <th>名称</th>
+                                                                <th>访问地址</th>
+                                                                <th>端口</th>
                                                                 <th>描述</th>
                                                                 <th>创建人</th>
                                                                 <th>创建时间</th>
@@ -155,7 +157,7 @@
                                                 <div class="pad-btm form-inline">
                                                     <div class="row">
                                                         <div class="col-sm-6 table-toolbar-left">
-                                                            <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
+                                                            <button class="btn btn-purple" onclick="popAddForm"><i class="demo-pli-add icon-fw"></i>添加</button>
                                                             <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
                                                             <div class="btn-group">
                                                                 <button class="btn btn-default"><i class="demo-pli-information"></i></button>
@@ -258,6 +260,57 @@
             </button>
             <!--===================================================--> 
         </div>
+        
+        <!--Default Bootstrap Modal-->
+        <!--===================================================-->
+        <div class="modal fade" id="hubModal" role="dialog" tabindex="-1" aria-labelledby="新建Hub" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+    
+                    <!--Modal header-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                        <h4 id="hubModalTitle" class="modal-title">新建Hub</h4>
+                    </div>
+    
+                    <!--Modal body-->
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="demo-is-inputsmall">名称</label>
+                                <div class="col-sm-9">
+                                    <input id="hubName" type="text" placeholder="Hub名称" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="demo-is-inputsmall">访问地址</label>
+                                <div class="col-sm-5">
+                                    <input id="hubAddress" type="text" placeholder="网址或IP地址" class="form-control input-sm">
+                                </div>
+                                <label class="col-sm-2 control-label" for="demo-is-inputsmall">端口</label>
+                                <div class="col-sm-2">
+                                    <input id="hubPort" type="text" placeholder="端口" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="demo-is-inputsmall">描述</label>
+                                <div class="col-sm-9">
+                                    <textarea id="hubDesc" placeholder="这个Hub用途，方便查看" class="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+    
+                    <!--Modal footer-->
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                        <button class="btn btn-primary" onclick="IDEATESTING.resource.saveHub();">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--===================================================-->
+        <!--End Default Bootstrap Modal-->
         
         <script type="text/javascript" src='<idp:url value="/js/resource/ideatesting-resource.js"/>'></script>
     </body>
