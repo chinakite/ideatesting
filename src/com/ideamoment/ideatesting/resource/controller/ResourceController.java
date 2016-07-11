@@ -3,6 +3,7 @@
  */
 package com.ideamoment.ideatesting.resource.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,15 @@ public class ResourceController extends BaseController {
     
     @RequestMapping(value="/hub", method=RequestMethod.POST)
     public JsonData addHub(TestNode node) {
-        System.out.println(node.getName());
+        if(StringUtils.isEmpty(node.getName())) {
+            
+        }
+        return JsonData.SUCCESS;
+    }
+    
+    @RequestMapping(value="/hub", method=RequestMethod.PUT)
+    public JsonData editHub(TestNode node) {
+        
         
         return JsonData.SUCCESS;
     }
