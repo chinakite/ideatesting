@@ -13,7 +13,7 @@ import com.ideamoment.ideatesting.model.dict.TestNodeTypeDict;
  *
  */
 @Entity(dataSet="T_NODE")
-public class TestNode extends HistoriableEntity {
+public class RunNode extends HistoriableEntity {
     
     @Property(dataItem="C_NAME", type=DataItemType.VARCHAR, length=300)
     private String name;

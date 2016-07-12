@@ -3,9 +3,9 @@
  */
 package com.ideamoment.ideatesting.resource.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ideamoment.ideadp.restful.json.JsonData;
 import com.ideamoment.ideajdbc.action.Page;
 import com.ideamoment.ideatesting.BaseController;
-import com.ideamoment.ideatesting.model.TestNode;
+import com.ideamoment.ideatesting.model.RunNode;
 import com.ideamoment.ideatesting.resource.service.ResourceService;
 import com.ideamoment.ideatesting.util.DataTableSource;
 
@@ -41,24 +41,27 @@ public class ResourceController extends BaseController {
         
         String ownerId = "1";
         
-        Page<TestNode> scripts = resourceService.pageHubs(curPage, pageSize, ownerId);
+        Page<RunNode> scripts = resourceService.pageHubs(curPage, pageSize, ownerId);
         DataTableSource dts = convertToDataTableSource(draw, scripts);
         return new JsonData(dts);
     }
     
     @RequestMapping(value="/hub", method=RequestMethod.POST)
-    public JsonData addHub(TestNode node) {
-        if(StringUtils.isEmpty(node.getName())) {
-            
-        }
+    public JsonData addHub(RunNode node) {
+        resourceService.addHub(node);
         return JsonData.SUCCESS;
     }
     
     @RequestMapping(value="/hub", method=RequestMethod.PUT)
-    public JsonData editHub(TestNode node) {
-        
-        
+    public JsonData editHub(RunNode node) {
+        resourceService.editHub(node);
         return JsonData.SUCCESS;
+    }
+    
+    @RequestMapping(value="/hub/{id}", method=RequestMethod.GET)
+    public JsonData findHub(@PathVariable String id) {
+        RunNode node = resourceService.findHub(id);
+        return JsonData.success(node);
     }
     
     @RequestMapping(value="/dtPageNodes", method=RequestMethod.GET)
@@ -70,7 +73,7 @@ public class ResourceController extends BaseController {
         
         String ownerId = "1";
         
-        Page<TestNode> scripts = resourceService.pageNodes(curPage, pageSize, ownerId);
+        Page<RunNode> scripts = resourceService.pageNodes(curPage, pageSize, ownerId);
         DataTableSource dts = convertToDataTableSource(draw, scripts);
         return new JsonData(dts);
     }

@@ -187,12 +187,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="table-responsive">
+                                                <div>
                                                     <table id="nodesTbl" class="table table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
                                                                 <th>名称</th>
+                                                                <th>访问地址</th>
+                                                                <th>端口</th>
                                                                 <th>描述</th>
                                                                 <th>创建人</th>
                                                                 <th>创建时间</th>

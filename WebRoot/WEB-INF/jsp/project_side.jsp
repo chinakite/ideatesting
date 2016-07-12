@@ -72,8 +72,8 @@
                                         </li>
                                         
                                         <!--Menu list item-->
-                                        <li>
-                                            <a href="index.html">
+                                        <li id="menu_schema">
+                                            <a href="<idp:ctx/>/project/${project.id}/schemaPage">
                                                 <i class="demo-psi-boot-2"></i>
                                                 <span class="menu-title">
                                                     <strong>测试方案</strong>

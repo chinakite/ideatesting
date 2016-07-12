@@ -17,9 +17,16 @@ IDEATESTING.resource.saveHub = function() {
     }else{
         $.post(
             commonVars.ctx + '/resource/hub',
-            {'name': name},
+            {
+                'name': name,
+                'address': address,
+                'port': port,
+                'desc': desc 
+            },
             function(json) {
-            
+                alert('保存成功');
+                $('#hubModal').modal('hide');
+                IDEATESTING.resource.hubTable.api().ajax.reload();
             }
         );
     }
@@ -28,7 +35,8 @@ IDEATESTING.resource.saveHub = function() {
 $(document).ready(function(){
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
-    $('#hubsTbl').dataTable( {
+    IDEATESTING.resource.hubTable 
+        = $('#hubsTbl').dataTable( {
           "processing": true,
           "paging": true,
           "lengthChange": false,
@@ -155,6 +163,8 @@ $(document).ready(function(){
             {},
             {},
             {},
+            {},
+            {},
             {}
           ],
           "columnDefs": [
@@ -173,23 +183,35 @@ $(document).ready(function(){
               {
                   "targets": [2],
                   "render": function(data, type, full) {
-                      return full.desc;
+                      return full.address;
                   }
               },
               {
                   "targets": [3],
                   "render": function(data, type, full) {
-                      return full.creatorId;
+                      return full.port;
                   }
               },
               {
                   "targets": [4],
                   "render": function(data, type, full) {
-                      return full.createTime;
+                      return full.desc;
                   }
               },
               {
                   "targets": [5],
+                  "render": function(data, type, full) {
+                      return full.creatorId;
+                  }
+              },
+              {
+                  "targets": [6],
+                  "render": function(data, type, full) {
+                      return full.createTime;
+                  }
+              },
+              {
+                  "targets": [7],
                   "render": function(data, type, full) {
                       var role = '${sessionScope.__SESSION__USER__.role}';
                   

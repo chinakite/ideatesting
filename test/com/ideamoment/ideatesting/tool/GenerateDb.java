@@ -7,7 +7,8 @@ import com.ideamoment.ideajdbc.configuration.IdeaJdbcConfiguration;
 import com.ideamoment.ideajdbc.tool.mysql.entity2ddl.MySqlEntity2Ddl;
 import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.Project;
-import com.ideamoment.ideatesting.model.TestNode;
+import com.ideamoment.ideatesting.model.RunNode;
+import com.ideamoment.ideatesting.model.RunSchema;
 import com.ideamoment.ideatesting.model.User;
 import com.ideamoment.ideatesting.model.UserLoginInfo;
 import com.ideamoment.ideatesting.model.UserProject;
@@ -28,11 +29,11 @@ public class GenerateDb {
         Class[] cls = new Class[]{
 //                    User.class,
 //                    Project.class,
-                    TestNode.class
-//                ,
+//                    RunNode.class,
 //                    UserProject.class,
 //                    UserLoginInfo.class,
-//                    CaseScript.class
+//                    CaseScript.class,
+                      RunSchema.class
                 };
         
         for(Class clz : cls) {
