@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ideamoment.ideadp.restful.json.JsonData;
+import com.ideamoment.ideajdbc.action.Page;
+import com.ideamoment.ideatesting.BaseController;
 import com.ideamoment.ideatesting.model.Project;
+import com.ideamoment.ideatesting.model.RunSchema;
 import com.ideamoment.ideatesting.project.service.ProjectService;
 import com.ideamoment.ideatesting.schema.service.SchemaService;
+import com.ideamoment.ideatesting.util.DataTableSource;
 
 /**
  * @author Chinakite
@@ -22,7 +27,7 @@ import com.ideamoment.ideatesting.schema.service.SchemaService;
  */
 @Controller
 @RequestMapping(value="/project/{projectId}")
-public class SchemaController {
+public class SchemaController extends BaseController {
     @Autowired
     private SchemaService schemaService;
     
@@ -39,4 +44,16 @@ public class SchemaController {
         return new ModelAndView("/WEB-INF/jsp/schema/schema_list.jsp", model);
     }
     
+    @RequestMapping(value="/dtPageSchemas", method=RequestMethod.GET)
+    public JsonData dtPageSchemas(@PathVariable String projectId,
+                                  int draw, 
+                                  int start, 
+                                  int length) {
+        int curPage = start/length + 1;
+        int pageSize = length;
+        
+        Page<RunSchema> scripts = schemaService.pageProjectSchemas(curPage, pageSize, projectId);
+        DataTableSource dts = convertToDataTableSource(draw, scripts);
+        return new JsonData(dts);
+    }
 }

@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard</title>
+        <title>测试方案</title>
         
         <link href='<idp:url value="/css/bootstrap.min.css"/>' rel="stylesheet">
         <link href='<idp:url value="/css/nifty.min.css"/>' rel="stylesheet">
@@ -67,7 +67,7 @@
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <ol class="breadcrumb">
                         <li><a href="#">${project.name}</a></li>
-                        <li class="active"><a href="#">脚本库</a></li>
+                        <li class="active"><a href="#">测试方案</a></li>
                     </ol>
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <!--End breadcrumb-->
@@ -79,18 +79,14 @@
                         <!-- Basic Data Tables -->
                         <!--===================================================-->
                         <div class="panel">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Basic Data Tables with responsive plugin</h3>
-                            </div>
                             <div class="panel-body">
-                                <table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <table id="schemaTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>文件名</th>
-                                            <th>版本</th>
-                                            <th>上传人</th>
-                                            <th>上传时间</th>
+                                            <th>名称</th>
+                                            <th>描述</th>
+                                            <th>运行方式</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>

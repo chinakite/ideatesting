@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
-    $('#hubsTbl').dataTable( {
+    $('#schemaTbl').dataTable( {
           "processing": true,
           "paging": true,
           "lengthChange": false,
@@ -15,7 +15,7 @@ $(document).ready(function(){
           "info": true,
           "autoWidth": false,
           "serverSide": true,
-          "ajax": {url: commonVars.ctx + '/project/' + scriptPageVars.projectId + "/dtPageScripts",
+          "ajax": {url: commonVars.ctx + '/project/' + scriptPageVars.projectId + "/dtPageSchemas",
               "data": function(d) {
                   
               }
@@ -36,7 +36,6 @@ $(document).ready(function(){
             {},
             {},
             {},
-            {},
             {}
           ],
           "columnDefs": [
@@ -49,29 +48,23 @@ $(document).ready(function(){
               {
                   "targets": [1],
                   "render": function(data, type, full) {
-                      return full.fileName;
+                      return full.name;
                   }
               },
               {
                   "targets": [2],
                   "render": function(data, type, full) {
-                      return full.version;
+                      return full.desc;
                   }
               },
               {
                   "targets": [3],
                   "render": function(data, type, full) {
-                      return full.creatorId;
+                      return full.runType;
                   }
               },
               {
                   "targets": [4],
-                  "render": function(data, type, full) {
-                      return full.createTime;
-                  }
-              },
-              {
-                  "targets": [5],
                   "render": function(data, type, full) {
                       var role = '${sessionScope.__SESSION__USER__.role}';
                   
