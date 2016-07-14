@@ -5,17 +5,7 @@ package com.ideamoment.ideatesting.tool;
 
 import com.ideamoment.ideajdbc.configuration.IdeaJdbcConfiguration;
 import com.ideamoment.ideajdbc.tool.mysql.entity2ddl.MySqlEntity2Ddl;
-import com.ideamoment.ideatesting.model.CaseScript;
-import com.ideamoment.ideatesting.model.Project;
-import com.ideamoment.ideatesting.model.RunCase;
-import com.ideamoment.ideatesting.model.RunCaseDependency;
-import com.ideamoment.ideatesting.model.RunNode;
-import com.ideamoment.ideatesting.model.RunSchema;
-import com.ideamoment.ideatesting.model.SchemaHub;
-import com.ideamoment.ideatesting.model.SchemaNode;
-import com.ideamoment.ideatesting.model.User;
-import com.ideamoment.ideatesting.model.UserLoginInfo;
-import com.ideamoment.ideatesting.model.UserProject;
+import com.ideamoment.ideatesting.model.RunCaseGroupMap;
 
 /**
  * @author Chinakite
@@ -40,8 +30,10 @@ public class GenerateDb {
 //                    RunSchema.class,
 //                      SchemaHub.class,
 //                      SchemaNode.class,
-                      RunCase.class,
-                      RunCaseDependency.class
+//                      RunCase.class,
+//                      RunCaseDependency.class,
+//                      RunCaseGroup.class,
+                      RunCaseGroupMap.class
                 };
         
         for(Class clz : cls) {

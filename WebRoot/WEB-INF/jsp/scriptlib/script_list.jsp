@@ -79,11 +79,8 @@
                         <!-- Basic Data Tables -->
                         <!--===================================================-->
                         <div class="panel">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Basic Data Tables with responsive plugin</h3>
-                            </div>
                             <div class="panel-body">
-                                <table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <table id="scriptTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th></th>

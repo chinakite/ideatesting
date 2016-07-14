@@ -64,5 +64,9 @@ public class ScriptController extends BaseController {
         return new JsonData(dts);
     }
 
-    
+    @RequestMapping(value="/parseScript", method=RequestMethod.POST)
+    public JsonData parseScript(String id) {
+        scriptService.parseScript(id);
+        return JsonData.SUCCESS;
+    }
 }

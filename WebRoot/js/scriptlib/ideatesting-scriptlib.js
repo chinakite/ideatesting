@@ -1,3 +1,19 @@
+; window.IDEATESTING || (window.IDEATESTING = {});
+IDEATESTING.scriptlib || (IDEATESTING.scriptlib = {});
+
+IDEATESTING.scriptlib.parseScript = function(id) {
+    $.post(
+        commonVars.ctx + '/project/' + scriptPageVars.projectId + "/parseScript",
+        {
+            'id': id
+        },
+        function(json){
+            alert('解析成功');
+        }
+    );
+};
+
+
 $(document).ready(function(){
     $('#menu_scriptlib').siblings().removeClass('active');
     $('#menu_scriptlib').siblings().removeClass('active-link');
@@ -6,7 +22,7 @@ $(document).ready(function(){
 
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
-    $('#hubsTbl').dataTable( {
+    $('#scriptTbl').dataTable( {
           "processing": true,
           "paging": true,
           "lengthChange": false,
@@ -76,12 +92,8 @@ $(document).ready(function(){
                       var role = '${sessionScope.__SESSION__USER__.role}';
                   
                       var html = '<a href=\'<idp:url value="/product/productDetail"/>?id=' + full.id + '\' target="_blank">查看</a> ';
-                          
-                      if(full.state == '0' || full.state == '101') {
                           html += '<span class="small">|</span> ';
-                          html += '<a onclick="popEditModal(\'' + full.id + '\');">编辑</a>';
-                          html += ' <span class="small">|</span> <a onclick="deleteProduct(\'' + full.id + '\', \'' + full.name + '\');">删除</a>';
-                      }
+                          html += '<a onclick="IDEATESTING.scriptlib.parseScript(\'' + full.id + '\');">重新解析</a>';
                       
                       return html;
                   }
