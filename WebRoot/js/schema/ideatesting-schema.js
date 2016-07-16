@@ -1,3 +1,16 @@
+; window.IDEATESTING || (window.IDEATESTING = {});
+IDEATESTING.schema || (IDEATESTING.schema = {});
+
+IDEATESTING.schema.runSchema = function(id) {
+    $.post(
+        commonVars.ctx + '/project/' + schemaPageVars.projectId + "/schema/" + id + "/run",
+        {},
+        function(json){
+            alert('执行成功');
+        }
+    );
+};
+
 $(document).ready(function(){
     $('#menu_schema').siblings().removeClass('active');
     $('#menu_schema').siblings().removeClass('active-link');
@@ -15,7 +28,7 @@ $(document).ready(function(){
           "info": true,
           "autoWidth": false,
           "serverSide": true,
-          "ajax": {url: commonVars.ctx + '/project/' + scriptPageVars.projectId + "/dtPageSchemas",
+          "ajax": {url: commonVars.ctx + '/project/' + schemaPageVars.projectId + "/dtPageSchemas",
               "data": function(d) {
                   
               }
@@ -69,12 +82,8 @@ $(document).ready(function(){
                       var role = '${sessionScope.__SESSION__USER__.role}';
                   
                       var html = '<a href=\'<idp:url value="/product/productDetail"/>?id=' + full.id + '\' target="_blank">查看</a> ';
-                          
-                      if(full.state == '0' || full.state == '101') {
                           html += '<span class="small">|</span> ';
-                          html += '<a onclick="popEditModal(\'' + full.id + '\');">编辑</a>';
-                          html += ' <span class="small">|</span> <a onclick="deleteProduct(\'' + full.id + '\', \'' + full.name + '\');">删除</a>';
-                      }
+                          html += '<a href="javascript:void(0);" onclick="IDEATESTING.schema.runSchema(\'' + full.id + '\');">立即执行</a>';
                       
                       return html;
                   }

@@ -82,8 +82,8 @@
                                         </li>
                                         
                                         <!--Menu list item-->
-                                        <li>
-                                            <a href="index.html">
+                                        <li id="menu_runcase">
+                                            <a href="<idp:ctx/>/project/${project.id}/casePage">
                                                 <i class="demo-psi-tactic"></i>
                                                 <span class="menu-title">
                                                     <strong>用例</strong>

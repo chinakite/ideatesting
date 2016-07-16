@@ -45,6 +45,5 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/zip4j_1.3.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/caserunner-0.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-4.5.3-complete.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/selenium-server-standalone-2.53.0.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -19,6 +19,9 @@ public class RunCaseGroup extends HistoriableEntity {
     @Property(dataItem="C_SCRIPT_ID", type=DataItemType.VARCHAR, length=32)
     private String scriptId;
     
+    @Property(dataItem="C_PROJECT_ID", type=DataItemType.VARCHAR, length=32)
+    private String projectId;
+    
     @Property(dataItem="C_START_LINE", type=DataItemType.INT)
     private int startLine;
     
@@ -81,4 +84,19 @@ public class RunCaseGroup extends HistoriableEntity {
     public void setEndLine(int endLine) {
         this.endLine = endLine;
     }
+
+    /**
+     * @return the projectId
+     */
+    public String getProjectId() {
+        return projectId;
+    }
+    
+    /**
+     * @param projectId the projectId to set
+     */
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+    
 }

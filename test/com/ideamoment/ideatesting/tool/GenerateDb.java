@@ -6,6 +6,8 @@ package com.ideamoment.ideatesting.tool;
 import com.ideamoment.ideajdbc.configuration.IdeaJdbcConfiguration;
 import com.ideamoment.ideajdbc.tool.mysql.entity2ddl.MySqlEntity2Ddl;
 import com.ideamoment.ideatesting.model.RunCaseGroupMap;
+import com.ideamoment.ideatesting.model.SchemaCase;
+import com.ideamoment.ideatesting.model.SchemaCaseGroup;
 
 /**
  * @author Chinakite
@@ -33,7 +35,9 @@ public class GenerateDb {
 //                      RunCase.class,
 //                      RunCaseDependency.class,
 //                      RunCaseGroup.class,
-                      RunCaseGroupMap.class
+//                      RunCaseGroupMap.class,
+                      SchemaCase.class,
+                      SchemaCaseGroup.class
                 };
         
         for(Class clz : cls) {

@@ -16,8 +16,11 @@ public class RunCaseGroupMap extends HistoriableEntity {
     @Property(dataItem="C_GROUP_NAME", type=DataItemType.VARCHAR, length=300)
     private String groupName;
     
-    @Property(dataItem="C_GROUP_NAME", type=DataItemType.VARCHAR, length=300)
+    @Property(dataItem="C_CASE_NAME", type=DataItemType.VARCHAR, length=300)
     private String caseName;
+    
+    @Property(dataItem="C_PROJECT_ID", type=DataItemType.VARCHAR, length=32)
+    private String projectId;
 
     
     /**
@@ -46,6 +49,20 @@ public class RunCaseGroupMap extends HistoriableEntity {
      */
     public void setCaseName(String caseName) {
         this.caseName = caseName;
+    }
+    
+    /**
+     * @return the projectId
+     */
+    public String getProjectId() {
+        return projectId;
+    }
+    
+    /**
+     * @param projectId the projectId to set
+     */
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
     
 }

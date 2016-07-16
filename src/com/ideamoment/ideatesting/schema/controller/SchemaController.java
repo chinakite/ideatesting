@@ -56,4 +56,10 @@ public class SchemaController extends BaseController {
         DataTableSource dts = convertToDataTableSource(draw, scripts);
         return new JsonData(dts);
     }
+    
+    @RequestMapping(value="/schema/{id}/run", method=RequestMethod.POST)
+    public JsonData runSchema(@PathVariable String id) {
+        schemaService.runSchema(id);
+        return JsonData.SUCCESS;
+    }
 }

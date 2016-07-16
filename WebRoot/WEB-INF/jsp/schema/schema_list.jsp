@@ -30,9 +30,9 @@
     
         <script type="text/javascript">
             window.commonVars || (window.commonVars = {});
-            window.scriptPageVars || (window.scriptPageVars = {});
+            window.schemaPageVars || (window.schemaPageVars = {});
             commonVars.ctx = '<idp:ctx/>';
-            scriptPageVars.projectId = '${project.id}';
+            schemaPageVars.projectId = '${project.id}';
             
         </script>
     </head>    

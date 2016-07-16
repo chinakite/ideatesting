@@ -89,6 +89,7 @@ public class ScriptService {
                 runCase.setName(caseName);
                 runCase.setScriptId(id);
                 runCase.setStartLine(5);
+                runCase.setProjectId(script.getProjectId());
                 
                 IdeaJdbc.save(runCase);
             }
@@ -105,6 +106,7 @@ public class ScriptService {
                 runCaseGroup.setName(groupName);
                 runCaseGroup.setScriptId(id);
                 runCaseGroup.setStartLine(1);
+                runCaseGroup.setProjectId(script.getProjectId());
                 
                 IdeaJdbc.save(runCaseGroup);
                 
@@ -117,6 +119,7 @@ public class ScriptService {
                     mapping.setGroupName(groupName);
                     mapping.setModifierId(userId);
                     mapping.setModifyTime(curTime);
+                    mapping.setProjectId(script.getProjectId());
                     IdeaJdbc.save(mapping);
                 }
             }
