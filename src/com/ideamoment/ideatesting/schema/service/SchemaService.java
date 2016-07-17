@@ -19,7 +19,6 @@ import com.ideamoment.caserunner.model.Case;
 import com.ideamoment.caserunner.model.CaseFile;
 import com.ideamoment.caserunner.model.Env;
 import com.ideamoment.caserunner.parser.CaseFileParser;
-import com.ideamoment.caserunner.runner.CaseRunner;
 import com.ideamoment.caserunner.runner.RemoteCaseRunner;
 import com.ideamoment.ideadp.appcontext.IdeaApplicationContext;
 import com.ideamoment.ideadp.exception.IdeaDataException;
@@ -29,6 +28,7 @@ import com.ideamoment.ideajdbc.action.Page;
 import com.ideamoment.ideajdbc.spring.IdeaJdbcTx;
 import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.RunCase;
+import com.ideamoment.ideatesting.model.RunNode;
 import com.ideamoment.ideatesting.model.RunSchema;
 import com.ideamoment.ideatesting.schema.dao.SchemaDao;
 
@@ -94,8 +94,14 @@ public class SchemaService {
         env.setBrowser(BrowserType.CHROME);
 
         RemoteCaseRunner runner = new RemoteCaseRunner();
-        runner.setAddress("localhost");
-        runner.setPort("4444");
+        
+        RunNode hub = schemaDao.queryHubBySchema(id);
+        if(hub == null) {
+            throw new RuntimeException("No hub.");
+        }else{
+            runner.setAddress(hub.getAddress());
+            runner.setPort(hub.getPort());
+        }
         
         for(RunCase runCase : runCases) {
             String caseName = runCase.getName();

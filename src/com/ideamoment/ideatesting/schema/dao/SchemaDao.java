@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.ideamoment.ideajdbc.IdeaJdbc;
 import com.ideamoment.ideajdbc.action.Page;
 import com.ideamoment.ideatesting.model.RunCase;
+import com.ideamoment.ideatesting.model.RunNode;
 import com.ideamoment.ideatesting.model.RunSchema;
 
 /**
@@ -41,6 +42,22 @@ public class SchemaDao {
         return IdeaJdbc.query(sql)
                         .setParameter("schemaId", id)
                         .listTo(RunCase.class);
+    }
+
+    public RunNode queryHubBySchema(String id) {
+        String sql = "SELECT "
+                    + "n.C_ID, "
+                    + "n.C_NAME, "
+                    + "n.C_ADDRESS, "
+                    + "n.C_PORT "
+                    + " FROM T_SCHEMA_HUB sc, T_NODE n "
+                    + " WHERE sc.C_SCHEMA_ID = :schemaId "
+                    + " AND   sc.C_NODE_ID = n.C_ID "
+                    + " AND   n.C_TYPE = '1'";
+
+        return (RunNode)IdeaJdbc.query(sql)
+                                 .setParameter("schemaId", id)
+                                 .uniqueTo(RunNode.class);
     }
 
 }
