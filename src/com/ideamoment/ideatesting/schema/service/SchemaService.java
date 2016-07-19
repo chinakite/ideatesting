@@ -99,8 +99,8 @@ public class SchemaService {
         if(hub == null) {
             throw new RuntimeException("No hub.");
         }else{
-            runner.setAddress(hub.getAddress());
-            runner.setPort(hub.getPort());
+            env.setAddress(hub.getAddress());
+            env.setPort(hub.getPort());
         }
         
         for(RunCase runCase : runCases) {
