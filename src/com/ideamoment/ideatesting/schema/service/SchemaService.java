@@ -14,12 +14,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ideamoment.caserunner.model.BrowserType;
 import com.ideamoment.caserunner.model.Case;
 import com.ideamoment.caserunner.model.CaseFile;
 import com.ideamoment.caserunner.model.Env;
+import com.ideamoment.caserunner.model.dict.BrowserType;
 import com.ideamoment.caserunner.parser.CaseFileParser;
-import com.ideamoment.caserunner.runner.RemoteCaseRunner;
+import com.ideamoment.caserunner.runner.DefaultCaseRunner;
 import com.ideamoment.ideadp.appcontext.IdeaApplicationContext;
 import com.ideamoment.ideadp.exception.IdeaDataException;
 import com.ideamoment.ideadp.exception.IdeaDataExceptionCode;
@@ -93,7 +93,7 @@ public class SchemaService {
         Env env = new Env();
         env.setBrowser(BrowserType.CHROME);
 
-        RemoteCaseRunner runner = new RemoteCaseRunner();
+        DefaultCaseRunner runner = new DefaultCaseRunner();
         
         RunNode hub = schemaDao.queryHubBySchema(id);
         if(hub == null) {
