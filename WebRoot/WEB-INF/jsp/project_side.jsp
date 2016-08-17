@@ -16,7 +16,7 @@
                                         <div class="profile-wrap">
                                             <div class="pad-btm">
                                                 <span class="label label-success pull-right">进行中</span>
-                                                <img class="img-circle img-sm img-border" src='<idp:url value="/img/profile-photos/1.png"/>' alt="Profile Picture">
+                                                <img class="img-circle img-sm img-border" src='<idp:url value="/img/sina.jpg"/>' alt="Profile Picture">
                                             </div>
                                             <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
                                                 <p class="mnp-name">${project.name}</p>

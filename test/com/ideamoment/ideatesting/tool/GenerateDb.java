@@ -8,6 +8,7 @@ import com.ideamoment.ideajdbc.tool.mysql.entity2ddl.MySqlEntity2Ddl;
 import com.ideamoment.ideatesting.model.RunCaseGroupMap;
 import com.ideamoment.ideatesting.model.SchemaCase;
 import com.ideamoment.ideatesting.model.SchemaCaseGroup;
+import com.ideamoment.ideatesting.model.SchemaScript;
 
 /**
  * @author Chinakite
@@ -20,7 +21,7 @@ public class GenerateDb {
      */
     public static void main(String[] args) {
         IdeaJdbcConfiguration.initConfig("ideajdbc.properties");
-        
+
         MySqlEntity2Ddl tool = new MySqlEntity2Ddl();
         Class[] cls = new Class[]{
 //                    User.class,
@@ -36,14 +37,14 @@ public class GenerateDb {
 //                      RunCaseDependency.class,
 //                      RunCaseGroup.class,
 //                      RunCaseGroupMap.class,
-                      SchemaCase.class,
-                      SchemaCaseGroup.class
+//                      SchemaCase.class,
+//                      SchemaCaseGroup.class,
+                    SchemaScript.class
                 };
-        
+
         for(Class clz : cls) {
             tool.syncTable("ideatest", "ideatest", null, clz, true);
         }
-        
     }
 
 }
