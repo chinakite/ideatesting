@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="selenium-java-client-driver">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/selenium-java-client-driver.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,6 +1,8 @@
 <component name="libraryTable">
-  <library name="aopalliance">
+  <library name="antlr-4.5.3-complete">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/antlr-4.5.3-complete.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/selenium-server-standalone-2.53.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/aopalliance.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/asm-3.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/aspectjrt-1.6.8.jar!/" />
@@ -41,7 +43,6 @@
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/proxool-cglib.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/slf4j-api-1.6.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/zip4j_1.3.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/caserunner-0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
