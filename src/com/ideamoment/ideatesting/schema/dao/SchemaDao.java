@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.ideamoment.ideajdbc.IdeaJdbc;
 import com.ideamoment.ideajdbc.action.Page;
+import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.RunCase;
 import com.ideamoment.ideatesting.model.RunNode;
 import com.ideamoment.ideatesting.model.RunSchema;
@@ -42,6 +43,20 @@ public class SchemaDao {
         return IdeaJdbc.query(sql)
                         .setParameter("schemaId", id)
                         .listTo(RunCase.class);
+    }
+    
+    public List<CaseScript> queryScriptsBySchema(String id) {
+        String sql = "SELECT "
+                   + "s.C_ID, "
+                   + "s.C_FILE_NAME, "
+                   + "s.C_FILE_URL "
+                   + " FROM T_SCHEMA_SCRIPT ss, T_SCRIPT s "
+                   + " WHERE ss.C_SCHEMA_ID = :schemaId "
+                   + " AND ss.C_SCRIPT_ID = s.C_ID ";
+
+        return IdeaJdbc.query(sql)
+                        .setParameter("schemaId", id)
+                        .listTo(CaseScript.class);
     }
 
     public RunNode queryHubBySchema(String id) {

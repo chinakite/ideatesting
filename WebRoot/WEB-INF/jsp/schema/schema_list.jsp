@@ -16,6 +16,7 @@
         
         <link href='<idp:url value="/plugins/datatables/media/css/dataTables.bootstrap.css"/>' rel="stylesheet">
         <link href='<idp:url value="/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css"/>' rel="stylesheet">
+        <link href='<idp:url value="/plugins/magic-check/css/magic-check.min.css"/>' rel="stylesheet">
         
         <link href='<idp:url value="/css/ideatesting.css"/>' rel="stylesheet">
         
@@ -213,6 +214,7 @@
                                 </table>
                             </div>
                             <div id="addSchemaStep4">
+                                <input id="schemaNodes" type="hidden"/>
                                 <table id="nodesTbl" class="table table-striped">
                                     <thead>
                                     <tr>
@@ -233,11 +235,11 @@
                                     <label class="col-sm-2 control-label" for="demo-is-inputsmall">执行方式</label>
                                     <div class="col-sm-9">
                                         <div class="radio">
-                                            <input id="manualRunRadio" class="magic-radio" type="radio" name="runSchemaType" checked>
+                                            <input id="manualRunRadio" class="magic-radio" type="radio" name="schemaRunType" value="0" checked>
                                             <label for="manualRunRadio">手动执行</label>
                                         </div>
                                         <div class="radio">
-                                            <input id="autoRunRadio" class="magic-radio" type="radio" name="runSchemaType" checked>
+                                            <input id="autoRunRadio" class="magic-radio" type="radio" name="schemaRunType" value="1">
                                             <label for="autoRunRadio">自动执行</label>
                                         </div>
                                     </div>

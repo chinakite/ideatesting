@@ -15,9 +15,8 @@ IDEATESTING.schema.clearSchemaModal = function() {
     $('#schemaModal #schemaName').val('');
     $('#schemaModal #schemaDesc').val('');
     $('#schemaModal #scriptTbl tbody').empty();
-    $('#addSchemaStep1').siblings().hide();
+    IDEATESTING.schema.toAddSchemaStep1();
     $('#addSchemaStep1').show();
-    $('#schemaModal').modal('show');
 };
 
 IDEATESTING.schema.popAddSchemaModal = function() {
@@ -75,6 +74,10 @@ IDEATESTING.schema.scriptTbl = null;
 IDEATESTING.schema.hubTbl = null;
 IDEATESTING.schema.nodeTbl = null;
 
+IDEATESTING.schema.selectedScripts = [];
+IDEATESTING.schema.selectedHub = null;
+IDEATESTING.schema.selectedNodes = [];
+
 IDEATESTING.schema.toAddSchemaStep1 = function() {
     $('#addSchemaStep1').siblings().hide();
     $('#addSchemaStep1').show();
@@ -126,7 +129,7 @@ IDEATESTING.schema.toAddSchemaStep2 = function() {
                 {
                     "targets": [0],
                     "render": function(data, type, full) {
-                        return '<input type="checkbox" value="' + full.id + '" class="tblRowCheckbox"/>';
+                        return '<input type="checkbox" value="' + full.id + '" class="tblRowCheckbox" onclick="IDEATESTING.schema.clickScript(this);"/>';
                     }
                 },
                 {
@@ -205,7 +208,7 @@ IDEATESTING.schema.toAddSchemaStep3 = function() {
                 {
                     "targets": [0],
                     "render": function(data, type, full) {
-                        return '<input type="checkbox" value="' + full.id + '" class="tblRowCheckbox"/>';
+                        return '<input type="checkbox" value="' + full.id + '" class="tblRowCheckbox" onclick="IDEATESTING.schema.clickHub(this);"/>';
                     }
                 },
                 {
@@ -290,7 +293,7 @@ IDEATESTING.schema.toAddSchemaStep4 = function() {
                 {
                     "targets": [0],
                     "render": function(data, type, full) {
-                        return '<input type="checkbox" value="' + full.id + '" class="tblRowCheckbox"/>';
+                        return '<input type="checkbox" value="' + full.id + '" class="tblRowCheckbox" onclick="IDEATESTING.schema.clickNode(this);"/>';
                     }
                 },
                 {
@@ -335,10 +338,33 @@ IDEATESTING.schema.toAddSchemaStep5 = function() {
     $('#addSchemaStep5').show();
     $('#addSchemaPrevStepBtn').prop('disabled', false);
     $('#addSchemaNextStepBtn').prop('disabled', true);
+    $('#addSchemaSaveBtn').prop('disabled', false);
 };
 
 IDEATESTING.schema.saveSchema = function() {
-
+	var schemaName = $('#schemaName').val();
+	var schemaDesc = $('#schemaDesc').val();
+	var schemaScripts = IDEATESTING.schema.selectedScripts.join(',');
+	var schemaHub = IDEATESTING.schema.selectedHub;
+	var schemaNodes = IDEATESTING.schema.selectedNodes.join(',');
+	var schemaRunType = $('input[name=schemaRunType]:checked').val();
+	
+	$.post(
+	    commonVars.ctx + '/project/' + schemaPageVars.projectId + '/schema',
+        {
+            'schemaName': schemaName,
+            'schemaDesc': schemaDesc,
+            'schemaScripts': schemaScripts,
+            'schemaHub': schemaHub,
+            'schemaNodes': schemaNodes,
+            'schemaRunType': schemaRunType
+        },
+        function(json) {
+            alert('保存成功');
+            $('#schemaModal').modal('hide');
+            IDEATESTING.schema.schemaTable.api().ajax.reload();
+        }
+	);
 };
 
 $(document).ready(function(){
@@ -349,7 +375,7 @@ $(document).ready(function(){
 
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
-    $('#schemaTbl').dataTable( {
+    IDEATESTING.schema.schemaTable = $('#schemaTbl').dataTable( {
           "processing": true,
           "paging": true,
           "lengthChange": false,
@@ -421,3 +447,37 @@ $(document).ready(function(){
           ]
       } );
 });
+
+IDEATESTING.schema.clickScript = function(obj) {
+    var $this = $(obj);
+    var scriptId = $this.val();
+    if($this.prop('checked')) {
+        IDEATESTING.schema.selectedScripts.push(scriptId);
+    }else{
+        IDEATESTING.schema.selectedScripts = $.grep(IDEATESTING.schema.selectedScripts, function(value) {
+		    return value != scriptId;
+		});
+    }
+};
+
+IDEATESTING.schema.clickHub = function(obj) {
+    var $this = $(obj);
+    var hubId = $this.val();
+    if($this.prop('checked')) {
+        IDEATESTING.schema.selectedHub = hubId;
+    }else{
+        IDEATESTING.schema.selectedHub = null;
+    }
+};
+
+IDEATESTING.schema.clickNode = function(obj) {
+    var $this = $(obj);
+    var nodeId = $this.val();
+    if($this.prop('checked')) {
+        IDEATESTING.schema.selectedNodes.push(nodeId);
+    }else{
+        IDEATESTING.schema.selectedNodes = $.grep(IDEATESTING.schema.selectedNodes, function(value) {
+		    return value != nodeId;
+		});
+    }
+};

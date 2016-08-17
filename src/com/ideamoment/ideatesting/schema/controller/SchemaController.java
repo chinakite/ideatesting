@@ -62,4 +62,17 @@ public class SchemaController extends BaseController {
         schemaService.runSchema(id);
         return JsonData.SUCCESS;
     }
+    
+    @RequestMapping(value="/schema", method=RequestMethod.POST)
+    public JsonData saveSchema(
+    		            @PathVariable String projectId,
+    					String schemaName,
+    					String schemaDesc,
+    					String schemaScripts,
+    					String schemaHub,
+    					String schemaNodes,
+    					String schemaRunType) {
+        schemaService.saveSchema(projectId, schemaName, schemaDesc, schemaScripts, schemaHub, schemaNodes, schemaRunType);
+        return JsonData.SUCCESS;
+    }
 }
