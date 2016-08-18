@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ideamoment.caserunner.model.Case;
+import com.ideamoment.caserunner.model.CaseExecuteResult;
 import com.ideamoment.caserunner.model.CaseFile;
+import com.ideamoment.caserunner.model.CommandExecuteResult;
 import com.ideamoment.caserunner.model.Env;
 import com.ideamoment.caserunner.model.dict.BrowserType;
+import com.ideamoment.caserunner.model.dict.CommandExecuteResultType;
 import com.ideamoment.caserunner.parser.CaseFileParser;
 import com.ideamoment.caserunner.runner.DefaultCaseRunner;
 import com.ideamoment.ideadp.appcontext.IdeaApplicationContext;
@@ -27,13 +29,15 @@ import com.ideamoment.ideadp.exception.IdeaDataExceptionCode;
 import com.ideamoment.ideajdbc.IdeaJdbc;
 import com.ideamoment.ideajdbc.action.Page;
 import com.ideamoment.ideajdbc.spring.IdeaJdbcTx;
+import com.ideamoment.ideatesting.model.CaseResult;
 import com.ideamoment.ideatesting.model.CaseScript;
-import com.ideamoment.ideatesting.model.RunCase;
+import com.ideamoment.ideatesting.model.CommandResult;
 import com.ideamoment.ideatesting.model.RunNode;
 import com.ideamoment.ideatesting.model.RunSchema;
 import com.ideamoment.ideatesting.model.SchemaHub;
 import com.ideamoment.ideatesting.model.SchemaNode;
 import com.ideamoment.ideatesting.model.SchemaScript;
+import com.ideamoment.ideatesting.model.dict.RunResultDict;
 import com.ideamoment.ideatesting.schema.dao.SchemaDao;
 
 /**
@@ -55,6 +59,8 @@ public class SchemaService {
 
     @IdeaJdbcTx
     public void runSchema(String id) {
+    	String curUserId = "1";
+    	
         try{
             RunSchema schema = IdeaJdbc.find(RunSchema.class, id);
             List<CaseScript> scripts = schemaDao.queryScriptsBySchema(id);
@@ -110,7 +116,32 @@ public class SchemaService {
             for(String caseName : allCases.keySet()) {
 //                String caseName = runCase.getName();
                 Case caze = allCases.get(caseName);
-                runner.run(env, caze);
+                CaseExecuteResult result = runner.run(env, caze);
+                
+                CaseResult caseResult = new CaseResult();
+                caseResult.setCaseName(caseName);
+                caseResult.setCreateTime(new Date());
+                caseResult.setCreatorId(curUserId);
+                caseResult.setResult(result.isSuccess() ? RunResultDict.SUCCESS : RunResultDict.FAILED);
+                caseResult.setSchemaId(id);
+                caseResult.setScriptId("1");
+                
+                IdeaJdbc.save(caseResult);
+                
+                List<CommandExecuteResult> commandExecuteResults = result.getCommandResults();
+                for(CommandExecuteResult commandExecuteResult : commandExecuteResults) {
+                	CommandResult commandResult = new CommandResult();
+                	commandResult.setCaseResultId(caseResult.getId());
+                	commandResult.setCommandText(commandExecuteResult.getCommand().getText());
+                	commandResult.setCreateTime(new Date());
+                	commandResult.setCreatorId(curUserId);
+                	commandResult.setEndLine(commandExecuteResult.getCommand().getEndLine());
+                	commandResult.setStartLine(commandExecuteResult.getCommand().getStartLine());
+                	commandResult.setMessage(commandExecuteResult.getMessage());
+                	commandResult.setResult(commandExecuteResult.getResult() == CommandExecuteResultType.SUCCESS ? RunResultDict.SUCCESS : RunResultDict.FAILED);
+                
+                	IdeaJdbc.save(commandResult);
+                }
             }
         }catch(Exception e) {
             e.printStackTrace();
