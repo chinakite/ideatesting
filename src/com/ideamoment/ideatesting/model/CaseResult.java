@@ -22,7 +22,10 @@ public class CaseResult extends HistoriableEntity {
 	
 	@Property(dataItem="C_SCHEMA_ID", type=DataItemType.VARCHAR, length=32)
 	private String schemaId;
-	
+
+	@Property(dataItem="C_SCHEMA_EXECUTION_ID", type=DataItemType.VARCHAR, length=32)
+	private String schemaExecutionId;
+
 	@Property(dataItem="C_RESULT", type=DataItemType.VARCHAR, length=2)
 	private String result;
 
@@ -57,5 +60,12 @@ public class CaseResult extends HistoriableEntity {
 	public void setResult(String result) {
 		this.result = result;
 	}
-	
+
+	public String getSchemaExecutionId() {
+		return schemaExecutionId;
+	}
+
+	public void setSchemaExecutionId(String schemaExecutionId) {
+		this.schemaExecutionId = schemaExecutionId;
+	}
 }
