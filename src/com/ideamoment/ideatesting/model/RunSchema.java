@@ -6,6 +6,7 @@ package com.ideamoment.ideatesting.model;
 import com.ideamoment.ideadata.annotation.DataItemType;
 import com.ideamoment.ideadata.annotation.Entity;
 import com.ideamoment.ideadata.annotation.Property;
+import com.ideamoment.ideatesting.model.dict.SchemaRunTypeDict;
 
 /**
  * @author Chinakite
@@ -80,5 +81,13 @@ public class RunSchema extends HistoriableEntity {
      */
     public void setRunType(String runType) {
         this.runType = runType;
+    }
+    
+    public String getRunTypeText() {
+    	if(SchemaRunTypeDict.AUTO.equals(this.runType)) {
+    		return SchemaRunTypeDict.AUTO_TEXT;
+    	}else{
+    		return SchemaRunTypeDict.MANUAL_TEXT;
+    	}
     }
 }

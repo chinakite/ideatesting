@@ -34,10 +34,12 @@ import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.CommandResult;
 import com.ideamoment.ideatesting.model.RunNode;
 import com.ideamoment.ideatesting.model.RunSchema;
+import com.ideamoment.ideatesting.model.SchemaExecution;
 import com.ideamoment.ideatesting.model.SchemaHub;
 import com.ideamoment.ideatesting.model.SchemaNode;
 import com.ideamoment.ideatesting.model.SchemaScript;
 import com.ideamoment.ideatesting.model.dict.RunResultDict;
+import com.ideamoment.ideatesting.model.dict.RunStateDict;
 import com.ideamoment.ideatesting.schema.dao.SchemaDao;
 
 /**
@@ -61,13 +63,20 @@ public class SchemaService {
     public void runSchema(String id) {
     	String curUserId = "1";
     	
+    	RunSchema schema = IdeaJdbc.find(RunSchema.class, id);
+    	
+    	Date curTime = new Date();
+        
+        SchemaExecution schemaExecution = new SchemaExecution();
+        schemaExecution.setCreatorId(curUserId);
+        schemaExecution.setCreateTime(curTime);
+        schemaExecution.setStartTime(curTime);
+        schemaExecution.setSchemaId(id);
+        
+        IdeaJdbc.save(schemaExecution);
+    	
         try{
-            RunSchema schema = IdeaJdbc.find(RunSchema.class, id);
             List<CaseScript> scripts = schemaDao.queryScriptsBySchema(id);
-//            HashSet<String> scriptIds = new HashSet<String>();
-//            for(RunCase runCase : runCases) {
-//                scriptIds.add(runCase.getScriptId());
-//            }
 
             Map<String, Case> allCases = new HashMap<String, Case>();
             for(CaseScript caseScript : scripts) {
@@ -114,11 +123,11 @@ public class SchemaService {
             }
 
             for(String caseName : allCases.keySet()) {
-//                String caseName = runCase.getName();
                 Case caze = allCases.get(caseName);
                 CaseExecuteResult result = runner.run(env, caze);
                 
                 CaseResult caseResult = new CaseResult();
+                caseResult.setSchemaExecutionId(schemaExecution.getId());
                 caseResult.setCaseName(caseName);
                 caseResult.setCreateTime(new Date());
                 caseResult.setCreatorId(curUserId);
@@ -143,8 +152,15 @@ public class SchemaService {
                 	IdeaJdbc.save(commandResult);
                 }
             }
+            
+            schemaExecution.setEndTime(new Date());
+            schemaExecution.setState(RunStateDict.SUCCESS);
+            IdeaJdbc.update(schemaExecution);
         }catch(Exception e) {
             e.printStackTrace();
+            schemaExecution.setEndTime(new Date());
+            schemaExecution.setState(RunStateDict.FAILED);
+            IdeaJdbc.update(schemaExecution);
         }
     }
 

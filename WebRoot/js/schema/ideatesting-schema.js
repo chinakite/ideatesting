@@ -429,7 +429,7 @@ $(document).ready(function(){
               {
                   "targets": [3],
                   "render": function(data, type, full) {
-                      return full.runType;
+                      return full.runTypeText;
                   }
               },
               {
