@@ -112,8 +112,8 @@
                                         </li>
                                         
                                         <!--Menu list item-->
-                                        <li>
-                                            <a href="index.html">
+                                        <li id="menu_report">
+                                            <a href="<idp:ctx/>/project/${project.id}/reportPage">
                                                 <i class="demo-psi-bar-chart"></i>
                                                 <span class="menu-title">
                                                     <strong>测试报告</strong>

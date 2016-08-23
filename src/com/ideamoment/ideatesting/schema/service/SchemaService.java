@@ -72,6 +72,7 @@ public class SchemaService {
         schemaExecution.setCreateTime(curTime);
         schemaExecution.setStartTime(curTime);
         schemaExecution.setSchemaId(id);
+        schemaExecution.setProjectId(schema.getProjectId());
         
         IdeaJdbc.save(schemaExecution);
     	
