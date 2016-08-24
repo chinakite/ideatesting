@@ -35,7 +35,7 @@ public class ReportController extends BaseController {
     private ProjectService projectService;
     
     @RequestMapping(value="/reportPage", method=RequestMethod.GET)
-    public ModelAndView schemaPage(@PathVariable String projectId) {
+    public ModelAndView reportPage(@PathVariable String projectId) {
         Project project = projectService.findProject(projectId);
         
         HashMap<String, Object> model = new HashMap<String, Object>();
@@ -55,5 +55,17 @@ public class ReportController extends BaseController {
         Page<SchemaExecution> scripts = reportService.pageProjectReports(curPage, pageSize, projectId);
         DataTableSource dts = convertToDataTableSource(draw, scripts);
         return new JsonData(dts);
+    }
+
+    @RequestMapping(value="/{schemaExecutionId}/caseReportPage", method=RequestMethod.GET)
+    public ModelAndView caseReportPage(@PathVariable String projectId, @PathVariable String schemaExecutionId) {
+        Project project = projectService.findProject(projectId);
+
+        HashMap<String, Object> model = new HashMap<String, Object>();
+        model.put("project", project);
+
+        
+
+        return new ModelAndView("/WEB-INF/jsp/report/case_report.jsp", model);
     }
 }

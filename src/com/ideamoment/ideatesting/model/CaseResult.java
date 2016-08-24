@@ -7,6 +7,8 @@ import com.ideamoment.ideadata.annotation.DataItemType;
 import com.ideamoment.ideadata.annotation.Entity;
 import com.ideamoment.ideadata.annotation.Property;
 
+import java.util.Date;
+
 /**
  * @author Chinakite
  *
@@ -28,6 +30,12 @@ public class CaseResult extends HistoriableEntity {
 
 	@Property(dataItem="C_RESULT", type=DataItemType.VARCHAR, length=2)
 	private String result;
+
+	@Property(dataItem="C_START_TIME", type= DataItemType.DATETIME)
+	private Date startTime;
+
+	@Property(dataItem="C_END_TIME", type= DataItemType.DATETIME)
+	private Date endTime;
 
 	public String getCaseName() {
 		return caseName;
@@ -67,5 +75,21 @@ public class CaseResult extends HistoriableEntity {
 
 	public void setSchemaExecutionId(String schemaExecutionId) {
 		this.schemaExecutionId = schemaExecutionId;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 }
