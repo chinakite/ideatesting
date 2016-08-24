@@ -3,11 +3,13 @@
  */
 package com.ideamoment.ideatesting.model;
 
+import java.util.Date;
+
 import com.ideamoment.ideadata.annotation.DataItemType;
 import com.ideamoment.ideadata.annotation.Entity;
 import com.ideamoment.ideadata.annotation.Property;
-
-import java.util.Date;
+import com.ideamoment.ideadata.annotation.Ref;
+import com.ideamoment.ideatesting.model.dict.RunResultDict;
 
 /**
  * @author Chinakite
@@ -37,6 +39,9 @@ public class CaseResult extends HistoriableEntity {
 	@Property(dataItem="C_END_TIME", type= DataItemType.DATETIME)
 	private Date endTime;
 
+	@Ref
+	private CaseScript script;
+	
 	public String getCaseName() {
 		return caseName;
 	}
@@ -91,5 +96,23 @@ public class CaseResult extends HistoriableEntity {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public CaseScript getScript() {
+		return script;
+	}
+
+	public void setScript(CaseScript script) {
+		this.script = script;
+	}
+	
+	public String getResultText() {
+		if(RunResultDict.SUCCESS.equals(this.result)) {
+			return RunResultDict.SUCCESS_TEXT;
+		}else if(RunResultDict.FAILED.equals(this.result)){
+			return RunResultDict.FAILED_TEXT;
+		}else{
+			return "";
+		}
 	}
 }

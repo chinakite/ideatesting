@@ -33,7 +33,7 @@
         window.reportPageVars || (window.reportPageVars = {});
         commonVars.ctx = '<idp:ctx/>';
         reportPageVars.projectId = '${project.id}';
-
+	    reportPageVars.schemaExecutionId = '${schemaExecution.id}';
     </script>
 </head>
 <body>
@@ -83,7 +83,6 @@
                         <table id="caseResultTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th></th>
                                 <th>用例名称</th>
                                 <th>所属脚本</th>
                                 <th>开始时间</th>
@@ -120,6 +119,46 @@
 
     <%@ include file="../scrollTopBtn.jsp"%>
 </div>
+
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal fade" id="commandResultModal" role="dialog" tabindex="-1" aria-labelledby="新建Hub" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!--Modal header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 id="hubModalTitle" class="modal-title">用例详情</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+                <table id="commandResultTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>备注</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!--Modal footer-->
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
 
 <script type="text/javascript" src='<idp:url value="/js/report/ideatesting-report.js"/>'></script>
 </body>

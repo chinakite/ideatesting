@@ -125,6 +125,7 @@ public class SchemaService {
 
             for(String caseName : allCases.keySet()) {
                 Case caze = allCases.get(caseName);
+                
                 CaseExecuteResult result = runner.run(env, caze);
                 
                 CaseResult caseResult = new CaseResult();
@@ -135,6 +136,8 @@ public class SchemaService {
                 caseResult.setResult(result.isSuccess() ? RunResultDict.SUCCESS : RunResultDict.FAILED);
                 caseResult.setSchemaId(id);
                 caseResult.setScriptId("1");
+                caseResult.setStartTime(result.getStartTime());
+                caseResult.setEndTime(result.getEndTime());
                 
                 IdeaJdbc.save(caseResult);
                 
@@ -149,7 +152,9 @@ public class SchemaService {
                 	commandResult.setStartLine(commandExecuteResult.getCommand().getStartLine());
                 	commandResult.setMessage(commandExecuteResult.getMessage());
                 	commandResult.setResult(commandExecuteResult.getResult() == CommandExecuteResultType.SUCCESS ? RunResultDict.SUCCESS : RunResultDict.FAILED);
-                
+                	commandResult.setStartTime(commandExecuteResult.getStartTime());
+                	commandResult.setEndTime(commandExecuteResult.getEndTime());
+                	
                 	IdeaJdbc.save(commandResult);
                 }
             }
@@ -221,4 +226,14 @@ public class SchemaService {
     		IdeaJdbc.save(node);
     	}
 	}
+    
+    @IdeaJdbcTx
+    public SchemaExecution findSchemaExecution(String id) {
+    	return IdeaJdbc.find(SchemaExecution.class, id);
+    }
+    
+    @IdeaJdbcTx
+    public RunSchema findSchema(String id) {
+    	return IdeaJdbc.find(RunSchema.class, id);
+    }
 }

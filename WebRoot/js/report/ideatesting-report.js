@@ -1,6 +1,73 @@
 ; window.IDEATESTING || (window.IDEATESTING = {});
 IDEATESTING.report || (IDEATESTING.report = {});
 
+IDEATESTING.report.commandResultTbl;
+
+IDEATESTING.report.showCommandResults = function(caseResultId) {
+    $('#commandResultModal').modal('show');
+    
+    if(IDEATESTING.report.commandResultTbl) {
+        IDEATESTING.report.commandResultTbl.draw();
+    }else{
+	    IDEATESTING.report.commandResultTbl = $('#commandResultTbl').dataTable( {
+	          "processing": true,
+	          "paging": false,
+	          "lengthChange": false,
+	          "searching": false,
+	          "ordering": false,
+	          "info": false,
+	          "autoWidth": false,
+	          "serverSide": true,
+	          "ajax": {url: commonVars.ctx + '/project/' + reportPageVars.projectId + "/schemaExecution/" + reportPageVars.schemaExecutionId + "/caseResult/" + caseResultId + "/commandReports",
+	              "data": function(d) {
+	                  
+	              }
+	          },
+	          language: {
+	            "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+	            "emptyTable": "没有符合条件的数据",
+	            "infoEmpty": ""  
+	          },
+	          "columnDefs": [
+	              {
+	                  "targets": [0],
+	                  "render": function(data, type, full) {
+	                      return full.commandText;
+	                  }
+	              },
+	              {
+	                  "targets": [1],
+	                  "render": function(data, type, full) {
+	                      return full.startTime;
+	                  }
+	              },
+	              {
+	                  "targets": [2],
+	                  "render": function(data, type, full) {
+	                      return full.endTime;
+	                  }
+	              },
+	              {
+	                  "targets": [3],
+	                  "render": function(data, type, full) {
+	                      if(full.message) {
+	                      	  return full.message;
+	                      }else{
+	                          return "";
+	                      }
+	                  }
+	              },
+	              {
+	                  "targets": [4],
+	                  "render": function(data, type, full) {
+	                      return full.resultText;
+	                  }
+	              }
+	          ]
+	      } );
+    }
+};
+
 $(document).ready(function(){
     $('#menu_report').siblings().removeClass('active');
     $('#menu_report').siblings().removeClass('active-link');
@@ -83,7 +150,74 @@ $(document).ready(function(){
               {
                   "targets": [6],
                   "render": function(data, type, full) {
-                      var html = '<a href=\'<idp:url value="/product/productDetail"/>?id=' + full.id + '\' target="_blank">查看详情</a> ';
+                      var html = '<a href="' + commonVars.ctx + '/project/'+ reportPageVars.projectId + '/schemaExecution/' + full.id + '/caseReportPage">查看详情</a> ';
+                      return html;
+                  }
+              }
+          ]
+      } );
+      
+      
+      $('#caseResultTbl').dataTable( {
+          "processing": true,
+          "paging": false,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": false,
+          "info": false,
+          "autoWidth": false,
+          "serverSide": true,
+          "ajax": {url: commonVars.ctx + '/project/' + reportPageVars.projectId + "/schemaExecution/" + reportPageVars.schemaExecutionId + "/caseReports",
+              "data": function(d) {
+                  
+              }
+          },
+          language: {
+            "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "emptyTable": "没有符合条件的数据",
+            "infoEmpty": ""  
+          },
+          "columnDefs": [
+              {
+                  "targets": [0],
+                  "render": function(data, type, full) {
+                      return full.caseName;
+                  }
+              },
+              {
+                  "targets": [1],
+                  "render": function(data, type, full) {
+                      return full.script.fileName;
+                  }
+              },
+              {
+                  "targets": [2],
+                  "render": function(data, type, full) {
+                      return full.startTime;
+                  }
+              },
+              {
+                  "targets": [3],
+                  "render": function(data, type, full) {
+                      return full.endTime;
+                  }
+              },
+              {
+                  "targets": [4],
+                  "render": function(data, type, full) {
+                      return full.creatorId;
+                  }
+              },
+              {
+                  "targets": [5],
+                  "render": function(data, type, full) {
+                      return full.resultText;
+                  }
+              },
+              {
+                  "targets": [6],
+                  "render": function(data, type, full) {
+                      var html = '<a href="javascript:void(0);" onclick="IDEATESTING.report.showCommandResults(\'' + full.id + '\');">查看详情</a> ';
                       return html;
                   }
               }

@@ -6,6 +6,7 @@ package com.ideamoment.ideatesting.model;
 import com.ideamoment.ideadata.annotation.DataItemType;
 import com.ideamoment.ideadata.annotation.Entity;
 import com.ideamoment.ideadata.annotation.Property;
+import com.ideamoment.ideatesting.model.dict.RunResultDict;
 
 import java.util.Date;
 
@@ -101,5 +102,15 @@ public class CommandResult extends HistoriableEntity {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	
+	public String getResultText() {
+		if(RunResultDict.SUCCESS.equals(this.result)) {
+			return RunResultDict.SUCCESS_TEXT;
+		}else if(RunResultDict.FAILED.equals(this.result)){
+			return RunResultDict.FAILED_TEXT;
+		}else{
+			return "";
+		}
 	}
 }
