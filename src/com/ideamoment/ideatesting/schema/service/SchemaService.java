@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ideamoment.caserunner.runner.MemoryRunContext;
+import com.ideamoment.caserunner.runner.RunContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,7 +115,9 @@ public class SchemaService {
             Env env = new Env();
             env.setBrowser(BrowserType.CHROME);
 
-            DefaultCaseRunner runner = new DefaultCaseRunner();
+            RunContext context = new MemoryRunContext();
+
+            DefaultCaseRunner runner = new DefaultCaseRunner(context);
 
             RunNode hub = schemaDao.queryHubBySchema(id);
             if(hub == null) {

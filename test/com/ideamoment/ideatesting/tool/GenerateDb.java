@@ -39,7 +39,10 @@ public class GenerateDb {
 //                    SchemaScript.class,
 //        			CaseResult.class,
 //        			CommandResult.class,
-                    SchemaExecution.class
+//                    SchemaExecution.class,
+                    Param.class,
+                    ParamListValue.class,
+                    ParamTableValue.class
                 };
 
         for(Class clz : cls) {

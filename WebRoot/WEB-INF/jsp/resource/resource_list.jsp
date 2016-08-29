@@ -314,6 +314,6 @@
         <!--===================================================-->
         <!--End Default Bootstrap Modal-->
         
-        <script type="text/javascript" src='<idp:url value="/js/resource/ideatesting-resource.js"/>'></script>
+        <script type="text/javascript" src='<idp:url value="/js/resource/ideatesting-datapool.js"/>'></script>
     </body>
 </html>

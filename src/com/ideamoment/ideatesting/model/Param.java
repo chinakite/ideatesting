@@ -6,6 +6,7 @@ package com.ideamoment.ideatesting.model;
 import com.ideamoment.ideadata.annotation.DataItemType;
 import com.ideamoment.ideadata.annotation.Entity;
 import com.ideamoment.ideadata.annotation.Property;
+import com.ideamoment.ideatesting.model.dict.ParamTypeDict;
 
 /**
  * @author Chinakite
@@ -16,6 +17,9 @@ public class Param extends HistoriableEntity {
 	
 	@Property(dataItem="C_NAME", type=DataItemType.VARCHAR, length=300)
     private String name;
+
+	@Property(dataItem="C_VAR_NAME", type=DataItemType.VARCHAR, length=300)
+	private String varName;
     
     @Property(dataItem="C_PROJECT_ID", type=DataItemType.VARCHAR, length=32)
     private String projectId;
@@ -35,6 +39,14 @@ public class Param extends HistoriableEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getVarName() {
+		return varName;
+	}
+
+	public void setVarName(String varName) {
+		this.varName = varName;
 	}
 
 	public String getProjectId() {
@@ -69,4 +81,14 @@ public class Param extends HistoriableEntity {
 		this.type = type;
 	}
 
+	public String getTypeText() {
+		if(this.type.equals(ParamTypeDict.LIST)) {
+			return ParamTypeDict.LIST_TEXT;
+		}else if(this.type.equals(ParamTypeDict.TABLE)) {
+			return ParamTypeDict.TABLE_TEXT;
+		}else if(this.type.equals(ParamTypeDict.VALUE)) {
+			return ParamTypeDict.VALUE_TEXT;
+		}
+		return "";
+	}
 }
