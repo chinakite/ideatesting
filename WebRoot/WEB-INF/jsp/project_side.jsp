@@ -103,7 +103,7 @@
                                         
                                         <!--Menu list item-->
                                         <li id="menu_datapool">
-                                            <a href="index.html">
+                                            <a href="<idp:ctx/>/project/${project.id}/dataPoolPage">
                                                 <i class="demo-psi-receipt-4"></i>
                                                 <span class="menu-title">
                                                     <strong>数据池</strong>

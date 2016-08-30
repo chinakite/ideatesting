@@ -416,6 +416,10 @@
     </orderEntry>
     <orderEntry type="library" name="aopalliance" level="project" />
     <orderEntry type="library" name="caserunner-0.1" level="project" />
-    <orderEntry type="library" name="selenium-java-client-driver" level="project" />
+    <orderEntry type="library" name="poi-3.14-20160307" level="project" />
+    <orderEntry type="library" name="poi-ooxml-3.14-20160307" level="project" />
+    <orderEntry type="library" name="xmlbeans-2.6.0" level="project" />
+    <orderEntry type="library" name="poi-ooxml-schemas-3.14-20160307" level="project" />
+    <orderEntry type="library" name="servlet-api" level="project" />
   </component>
 </module>

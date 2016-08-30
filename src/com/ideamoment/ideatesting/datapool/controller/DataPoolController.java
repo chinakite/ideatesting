@@ -1,8 +1,14 @@
 package com.ideamoment.ideatesting.datapool.controller;
 
+import com.ideamoment.ideadp.restful.json.JsonData;
+import com.ideamoment.ideajdbc.action.Page;
+import com.ideamoment.ideatesting.BaseController;
 import com.ideamoment.ideatesting.datapool.service.DataPoolService;
+import com.ideamoment.ideatesting.model.CaseScript;
+import com.ideamoment.ideatesting.model.Param;
 import com.ideamoment.ideatesting.model.Project;
 import com.ideamoment.ideatesting.project.service.ProjectService;
+import com.ideamoment.ideatesting.util.DataTableSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +23,7 @@ import java.util.HashMap;
  */
 @Controller
 @RequestMapping(value="/project/{projectId}")
-public class DataPoolController {
+public class DataPoolController extends BaseController{
     @Autowired
     private DataPoolService dataPoolService;
 
@@ -32,5 +38,30 @@ public class DataPoolController {
         model.put("project", project);
 
         return new ModelAndView("/WEB-INF/jsp/datapool/data_list.jsp", model);
+    }
+
+    @RequestMapping(value="/dtPageParams", method=RequestMethod.GET)
+    public JsonData dtPageParams(@PathVariable String projectId,
+                                  int draw,
+                                  int start,
+                                  int length) {
+        int curPage = start/length + 1;
+        int pageSize = length;
+
+        Page<Param> scripts = dataPoolService.pageProjectParams(curPage, pageSize, projectId);
+        DataTableSource dts = convertToDataTableSource(draw, scripts);
+        return new JsonData(dts);
+    }
+
+    @RequestMapping(value="/param", method=RequestMethod.POST)
+    public JsonData saveParam(
+            @PathVariable String projectId,
+            String name,
+            String desc,
+            String varName,
+            String type,
+            String value) {
+        dataPoolService.saveParam(projectId, name, desc, varName, type, value);
+        return JsonData.SUCCESS;
     }
 }

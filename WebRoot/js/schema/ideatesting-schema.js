@@ -83,7 +83,7 @@ IDEATESTING.schema.toAddSchemaStep1 = function() {
     $('#addSchemaStep1').show();
     $('#addSchemaPrevStepBtn').prop('disabled', true);
     $('#addSchemaNextStepBtn').prop('disabled', false);
-}
+};
 
 IDEATESTING.schema.toAddSchemaStep2 = function() {
     $('#addSchemaStep2').siblings().hide();

@@ -16,6 +16,7 @@
 
     <link href='<idp:url value="/plugins/datatables/media/css/dataTables.bootstrap.css"/>' rel="stylesheet">
     <link href='<idp:url value="/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css"/>' rel="stylesheet">
+    <link href='<idp:url value="/plugins/bootstrap-select/bootstrap-select.min.css"/>' rel="stylesheet">
 
     <link href='<idp:url value="/css/ideatesting.css"/>' rel="stylesheet">
 
@@ -27,6 +28,9 @@
     <script src='<idp:url value="/plugins/datatables/media/js/jquery.dataTables.js"/>'></script>
     <script src='<idp:url value="/plugins/datatables/media/js/dataTables.bootstrap.js"/>'></script>
     <script src='<idp:url value="/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"/>'></script>
+
+    <!-- Bootstrap select -->
+    <script src='<idp:url value="/plugins/bootstrap-select/bootstrap-select.min.js"/>'></script>
 
     <script type="text/javascript">
         window.commonVars || (window.commonVars = {});
@@ -80,7 +84,39 @@
                 <!--===================================================-->
                 <div class="panel">
                     <div class="panel-body">
-                        <table id="scriptTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <div class="row">
+                            <div class="col-sm-6 table-toolbar-left">
+                                <button class="btn btn-purple" onclick="IDEATESTING.datapool.popAddParamModal();"><i class="demo-pli-add icon-fw"></i>新建数据</button>
+                                <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
+                                <div class="btn-group">
+                                    <button class="btn btn-default"><i class="demo-pli-information"></i></button>
+                                    <button class="btn btn-default"><i class="demo-pli-recycling"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 table-toolbar-right">
+                                <div class="form-group">
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search" id="demo-input-search2">
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-default"><i class="demo-pli-download-from-cloud"></i></button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="demo-pli-gear"></i>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table id="dataTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th></th>
@@ -119,7 +155,82 @@
 
     <%@ include file="../scrollTopBtn.jsp"%>
 </div>
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal fade" id="paramModal" role="dialog" tabindex="-1" aria-labelledby="新建数据" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!--Modal header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 id="hubModalTitle" class="modal-title">新建数据</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div id="addParamStep1">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">名称</label>
+                            <div class="col-sm-9">
+                                <input id="name" type="text" placeholder="数据名称" class="form-control input-sm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="varName">变量名称</label>
+                            <div class="col-sm-9">
+                                <input id="varName" type="text" placeholder="变量名称，项目内唯一，脚本中使用" class="form-control input-sm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">数据类型</label>
+                            <div class="col-sm-9 bootstrap-select">
+                                <select id="type" name="type" class="selectPicker">
+                                    <option value="0">固定值</option>
+                                    <option value="1">数据列表（单列）</option>
+                                    <option value="2">数据表格（多列）</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="desc">描述</label>
+                            <div class="col-sm-9">
+                                <textarea id="desc" placeholder="这个数据的简述，方便查看" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="addParamStep2" style="display: none;">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputFile">数据文件</label>
+                            <div class="col-sm-9">
+                                <input id="inputFile" type="file" class="form-control input-sm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="fileType">文件类型</label>
+                            <div class="col-sm-9 bootstrap-select">
+                                <select id="fileType" name="fileType" class="selectPicker">
+                                    <option value="0">txt</option>
+                                    <option value="1">xls</option>
+                                    <option value="2">xlsx</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                 </form>
+            </div>
+
+            <!--Modal footer-->
+            <div class="modal-footer">
+                <button id="addParamCancelBtn" data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                <button id="addParamPrevStepBtn" class="btn btn-primary" onclick="IDEATESTING.datapool.addParamPrevStep();" disabled>上一步</button>
+                <button id="addParamNextStepBtn" class="btn btn-primary" onclick="IDEATESTING.datapool.addParamNextStep();">下一步</button>
+                <button id="addParamSaveBtn" class="btn btn-primary" onclick="IDEATESTING.datapool.saveParam();" disabled>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src='<idp:url value="/js/datapool/ideatesting-datapool.js"/>'></script>
 </body>
 </html>

@@ -1,18 +1,74 @@
 ; window.IDEATESTING || (window.IDEATESTING = {});
 IDEATESTING.datapool || (IDEATESTING.datapool = {});
 
-IDEATESTING.datapool.parseScript = function(id) {
+IDEATESTING.datapool.clearParamModal = function() {
+    $('#paramModal #name').val('');
+    $('#paramModal #desc').val('');
+    $('#paramModal #varName').val('');
+    IDEATESTING.datapool.toAddParamStep1();
+    $('#addParamStep1').show();
+};
+
+IDEATESTING.datapool.popAddParamModal = function(id) {
+    IDEATESTING.datapool.clearParamModal();
+    $('#paramModal').modal('show');
+};
+
+IDEATESTING.datapool.addParamPrevStep = function() {
+    var step2Shown = $('#addParamStep2').css('display') != 'none';
+
+    if(step2Shown) {
+        IDEATESTING.datapool.toAddParamStep1();
+    }
+};
+
+IDEATESTING.datapool.addParamNextStep = function() {
+    var step1Shown = $('#addParamStep1').css('display') != 'none';
+
+    if(step1Shown) {
+        IDEATESTING.datapool.toAddParamStep2();
+    }
+};
+
+IDEATESTING.datapool.toAddParamStep1 = function() {
+    $('#addParamStep1').siblings().hide();
+    $('#addParamStep1').show();
+    $('#addParamPrevStepBtn').prop('disabled', true);
+    $('#addParamNextStepBtn').prop('disabled', false);
+    $('#addParamSaveBtn').prop('disabled', true);
+};
+
+IDEATESTING.datapool.toAddParamStep2 = function() {
+    $('#addParamStep2').siblings().hide();
+    $('#addParamStep2').show();
+    $('#addParamPrevStepBtn').prop('disabled', false);
+    $('#addParamNextStepBtn').prop('disabled', true);
+    $('#addParamSaveBtn').prop('disabled', false);
+};
+
+IDEATESTING.datapool.saveParam = function() {
+    var name = $('#name').val();
+    var desc = $('#desc').val();
+    var varName = $('#varName').val();
+    var type = $('#type').val();
+
     $.post(
-        commonVars.ctx + '/project/' + scriptPageVars.projectId + "/parseScript",
+        commonVars.ctx + '/project/' + dataPoolPageVars.projectId + '/param',
         {
-            'id': id
+            'name': name,
+            'desc': desc,
+            'varName': varName,
+            'type': type
         },
-        function(json){
-            alert('解析成功');
+        function(json) {
+            alert('保存成功');
+            $('#paramModal').modal('hide');
+            IDEATESTING.datapool.paramTbl.api().ajax.reload();
         }
     );
 };
 
+IDEATESTING.datapool.paramTbl = null;
 
 $(document).ready(function(){
     $('#menu_datapool').siblings().removeClass('active');
@@ -20,9 +76,11 @@ $(document).ready(function(){
     $('#menu_datapool').addClass('active');
     $('#menu_datapool').addClass('active-link');
 
+    $('.selectPicker').selectpicker({});
+
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------
-    $('#dataTbl').dataTable( {
+    IDEATESTING.datapool.paramTbl = $('#dataTbl').dataTable( {
         "processing": true,
         "paging": true,
         "lengthChange": false,
@@ -31,7 +89,7 @@ $(document).ready(function(){
         "info": true,
         "autoWidth": false,
         "serverSide": true,
-        "ajax": {url: commonVars.ctx + '/project/' + scriptPageVars.projectId + "/dtPageScripts",
+        "ajax": {url: commonVars.ctx + '/project/' + dataPoolPageVars.projectId + "/dtPageParams",
             "data": function(d) {
 
             }
@@ -90,7 +148,7 @@ $(document).ready(function(){
             {
                 "targets": [5],
                 "render": function(data, type, full) {
-                    return full.creatorTime;
+                    return full.createTime;
                 }
             },
             {
