@@ -32,6 +32,10 @@
     <!-- Bootstrap select -->
     <script src='<idp:url value="/plugins/bootstrap-select/bootstrap-select.min.js"/>'></script>
 
+    <script src='<idp:url value="/plugins/fileupload/jquery.ui.widget.js"/>'></script>
+    <script src='<idp:url value="/plugins/fileupload/jquery.fileupload.js"/>'></script>
+    <script src='<idp:url value="/plugins/fileupload/jquery.iframe-transport.js"/>'></script>
+
     <script type="text/javascript">
         window.commonVars || (window.commonVars = {});
         window.dataPoolPageVars || (window.dataPoolPageVars = {});
@@ -158,7 +162,7 @@
 <!--Default Bootstrap Modal-->
 <!--===================================================-->
 <div class="modal fade" id="paramModal" role="dialog" tabindex="-1" aria-labelledby="新建数据" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!--Modal header-->
@@ -202,19 +206,20 @@
                     </div>
                     <div id="addParamStep2" style="display: none;">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="inputFile">数据文件</label>
-                            <div class="col-sm-9">
-                                <input id="inputFile" type="file" class="form-control input-sm">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-sm-2 control-label" for="fileType">文件类型</label>
                             <div class="col-sm-9 bootstrap-select">
                                 <select id="fileType" name="fileType" class="selectPicker">
-                                    <option value="0">txt</option>
+                                    <option value="0">xlsx</option>
                                     <option value="1">xls</option>
-                                    <option value="2">xlsx</option>
+                                    <option value="2">txt</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="importFile">数据文件</label>
+                            <div class="col-sm-9">
+                                <input id="importFile" name="importFile" type="file" class="form-control input-sm"/>
+                                <input id="importFileServerUrl" type="hidden"/>
                             </div>
                         </div>
                     </div>

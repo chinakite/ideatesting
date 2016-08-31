@@ -1,5 +1,6 @@
 package com.ideamoment.ideatesting.datapool.controller;
 
+import com.ideamoment.ideadp.appcontext.IdeaApplicationContext;
 import com.ideamoment.ideadp.restful.json.JsonData;
 import com.ideamoment.ideajdbc.action.Page;
 import com.ideamoment.ideatesting.BaseController;
@@ -7,8 +8,11 @@ import com.ideamoment.ideatesting.datapool.service.DataPoolService;
 import com.ideamoment.ideatesting.model.CaseScript;
 import com.ideamoment.ideatesting.model.Param;
 import com.ideamoment.ideatesting.model.Project;
+import com.ideamoment.ideatesting.model.dict.ParamFileTypeDict;
 import com.ideamoment.ideatesting.project.service.ProjectService;
 import com.ideamoment.ideatesting.util.DataTableSource;
+import com.ideamoment.ideatesting.util.ExcelUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -62,6 +67,24 @@ public class DataPoolController extends BaseController{
             String type,
             String value) {
         dataPoolService.saveParam(projectId, name, desc, varName, type, value);
+        return JsonData.SUCCESS;
+    }
+
+    @RequestMapping(value="/previewFile", method=RequestMethod.POST)
+    public JsonData previewFile(String fileUrl, String type) {
+        if(ParamFileTypeDict.XLSX.equals(type) || ParamFileTypeDict.XLS.equals(type)) {
+            String webRoot = IdeaApplicationContext.getInstance().getWebRoot();
+            fileUrl = webRoot + fileUrl;
+
+            try {
+                Workbook wb = ExcelUtils.getExcelWorkbook(fileUrl);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return JsonData.exception("00001", e.getMessage());
+            }
+        }
         return JsonData.SUCCESS;
     }
 }

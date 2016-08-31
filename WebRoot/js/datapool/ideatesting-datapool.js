@@ -165,4 +165,26 @@ $(document).ready(function(){
             }
         ]
     } );
+
+    $('#importFile').fileupload({
+        url: commonVars.ctx + '/uploadParam',
+        dataType: 'json',
+        done: function (e, data) {
+            var fileUrl = data['result']['data'][0]['fileUrl'];
+            var fileName = data['result']['data'][0]['fileName'];
+            $('#importFileServerUrl').val(fileUrl);
+
+            var fileType = $('#fileType').val();
+            $.post(
+                commonVars.ctx + '/previewFile',
+                {
+                    fileUrl: fileUrl,
+                    fileType: fileType
+                },
+                function(json){
+
+                }
+            );
+        }
+    });
 });

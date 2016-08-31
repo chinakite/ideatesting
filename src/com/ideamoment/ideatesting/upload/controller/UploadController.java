@@ -31,7 +31,7 @@ public class UploadController {
      *
      * @return
      */
-    @RequestMapping(value="/uploadDoc", method= RequestMethod.POST)
+    @RequestMapping(value="/uploadParam", method= RequestMethod.POST)
     public JsonData uploadDoc(HttpServletRequest request, HttpServletResponse response, @RequestParam("importFile") CommonsMultipartFile[] files) {
         LinkedList<FileMeta> filemetas = new LinkedList<FileMeta>();
 
@@ -56,7 +56,7 @@ public class UploadController {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                     String dateStr = sdf.format(date);
 
-                    String outputDirStr = webRoot + "uploadTmp/doc" + File.separator + dateStr;
+                    String outputDirStr = webRoot + "uploads/params" + File.separator + dateStr;
                     File outputDir = new File(outputDirStr);
                     if(!outputDir.exists()) {
                         outputDir.mkdirs();
@@ -68,7 +68,7 @@ public class UploadController {
 
                     String outputPath = outputDirStr + File.separator + fileRealName + "_" + filemeta.getFileId() + fileExtName;
 
-                    String fileUrl = "/uploadTmp/doc" + File.separator + dateStr + File.separator + fileRealName + "_" + filemeta.getFileId() + fileExtName;
+                    String fileUrl = "/uploads/params" + File.separator + dateStr + File.separator + fileRealName + "_" + filemeta.getFileId() + fileExtName;
                     fileUrl = fileUrl.replaceAll("\\\\", "/");
                     filemeta.setFileUrl(fileUrl);
 
