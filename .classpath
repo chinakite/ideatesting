@@ -45,5 +45,10 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/zip4j_1.3.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/caserunner-0.1.jar" sourcepath="/caserunner"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-4.5.3-complete.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-ooxml-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-ooxml-schemas-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

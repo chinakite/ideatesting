@@ -78,8 +78,10 @@ public class DataPoolController extends BaseController{
 
             try {
                 Workbook wb = ExcelUtils.getExcelWorkbook(fileUrl);
+                int sheetNum = wb.getNumberOfSheets();
 
-
+                
+                
             } catch (IOException e) {
                 e.printStackTrace();
                 return JsonData.exception("00001", e.getMessage());
