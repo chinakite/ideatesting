@@ -11,9 +11,29 @@ public class ExcelSheet {
 	private String name;
 
 	private int sheetIndex;
+	
+	private int maxRowNo = 0;
 
     private List<ExcelRow> rows = new ArrayList<ExcelRow>();
 
+    public void addExcelRow(ExcelRow row) {
+    	 if (row != null) {
+             if (row.getRowNo() > maxRowNo) {
+            	 maxRowNo = row.getRowNo();
+             }
+         }
+        this.rows.add(row);
+    }
+
+    public void addExcelRows(List<ExcelRow> rowList) {
+
+        if (rowList != null) {
+            for (ExcelRow row : rowList) {
+            	addExcelRow(row);
+            }
+        }
+    }
+    
 	public String getName() {
 		return name;
 	}

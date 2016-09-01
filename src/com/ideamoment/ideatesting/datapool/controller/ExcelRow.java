@@ -7,7 +7,10 @@ import java.util.List;
  * Created by zhangzhonghua on 2016/8/31.
  */
 public class ExcelRow {
+	
 	private int             maxColumnNo = 0;
+	
+	private int             rowNo;
     
     /**
      * 单元格列表
@@ -71,5 +74,13 @@ public class ExcelRow {
     public void setHeader(boolean header) {
         this.header = header;
     }
+
+	public int getRowNo() {
+		return rowNo;
+	}
+
+	public void setRowNo(int rowNum) {
+		this.rowNo = rowNum;
+	}
 
 }

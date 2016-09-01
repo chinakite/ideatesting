@@ -15,6 +15,7 @@ public class ExcelCell {
     
     private String[] combo = null;
 
+    private boolean identify = false;
     
     /**
      * @return the column
@@ -84,6 +85,16 @@ public class ExcelCell {
 
         this.dataType = dataType;
     }
+
+
+	public boolean isIdentify() {
+		return identify;
+	}
+
+
+	public void setIdentify(boolean identify) {
+		this.identify = identify;
+	}
 
 
 }

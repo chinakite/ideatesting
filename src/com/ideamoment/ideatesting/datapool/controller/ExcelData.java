@@ -13,5 +13,13 @@ public class ExcelData {
     public int getSheetCount() {
     	return sheets.size();
     }
+    
+    public void addExcelSheet(ExcelSheet sheet) {
+        this.sheets.add(sheet);
+    }
+    
+    public List<ExcelSheet> getSheets() {
+    	return this.sheets;
+    }
 
 }
