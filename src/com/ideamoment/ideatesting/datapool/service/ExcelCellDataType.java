@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ideamoment.ideatesting.datapool.controller;
+package com.ideamoment.ideatesting.datapool.service;
 
 /**
  * @author Chinakite

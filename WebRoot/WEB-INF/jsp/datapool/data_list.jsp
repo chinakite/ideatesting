@@ -36,6 +36,8 @@
     <script src='<idp:url value="/plugins/fileupload/jquery.fileupload.js"/>'></script>
     <script src='<idp:url value="/plugins/fileupload/jquery.iframe-transport.js"/>'></script>
 
+    <script src='<idp:url value="/js/template.js"/>'></script>
+
     <script type="text/javascript">
         window.commonVars || (window.commonVars = {});
         window.dataPoolPageVars || (window.dataPoolPageVars = {});
@@ -222,6 +224,11 @@
                                 <input id="importFileServerUrl" type="hidden"/>
                             </div>
                         </div>
+                        <div>
+                        </div>
+                        <table id="dataPreviewTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+
+                        </table>
                     </div>
                  </form>
             </div>
@@ -237,5 +244,12 @@
     </div>
 </div>
 <script type="text/javascript" src='<idp:url value="/js/datapool/ideatesting-datapool.js"/>'></script>
+
+<script id="preivewFileTmpl" type="text/html">
+    {{each datas as row}}
+        {{if }}
+    {{/each}}
+</script>
+
 </body>
 </html>
