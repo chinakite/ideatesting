@@ -224,11 +224,24 @@
                                 <input id="importFileServerUrl" type="hidden"/>
                             </div>
                         </div>
-                        <div>
-                        </div>
-                        <table id="dataPreviewTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="importFile">数据预览</label>
+                            <div class="col-sm-9">
+                            	<div class="bootstrap-select">
+	                                <select id="sheetNames" name="sheetNames" class="selectPicker">
 
-                        </table>
+	                                </select>
+	                            </div>
+	                            <table id="dataPreviewTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										
+									</thead>
+									<tbody>
+									
+									</tbody>
+		                        </table>
+                            </div>
+                        </div>
                     </div>
                  </form>
             </div>
@@ -245,9 +258,15 @@
 </div>
 <script type="text/javascript" src='<idp:url value="/js/datapool/ideatesting-datapool.js"/>'></script>
 
-<script id="preivewFileTmpl" type="text/html">
-    {{each datas as row}}
-        {{if }}
+<script id="sheetSelectorTmpl" type="text/html">
+    {{each sheets as sheet i}}
+        <option value="{{i}}">{{sheet.name}}</option>
+    {{/each}}
+</script>
+
+<script id="preivewFileHeaderTmpl" type="text/html">
+    {{each datas as row i}}
+        
     {{/each}}
 </script>
 

@@ -74,8 +74,8 @@ public class DataPoolController extends BaseController{
     }
 
     @RequestMapping(value="/previewFile", method=RequestMethod.POST)
-    public JsonData previewFile(String fileUrl, String type) {
-        ExcelData excelData = dataPoolService.parseDataFile(fileUrl, type);
+    public JsonData previewFile(String fileUrl, String fileType) {
+        ExcelData excelData = dataPoolService.parseDataFile(fileUrl, fileType);
         return JsonData.success(excelData);
     }
 }

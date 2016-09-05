@@ -176,13 +176,19 @@ $(document).ready(function(){
 
             var fileType = $('#fileType').val();
             $.post(
-                commonVars.ctx + '/previewFile',
+                commonVars.ctx + '/project/' + dataPoolPageVars.projectId + '/previewFile',
                 {
                     fileUrl: fileUrl,
                     fileType: fileType
                 },
                 function(json){
-
+					var excelData = $.parseJSON(json);
+					var sheets = excelData.sheets;
+					var selectorHtml = template('sheetSelectorTmpl', sheets);
+					alert(selectorHtml);
+					$('#sheetNames').html(selectorHtml);
+					
+					
                 }
             );
         }
