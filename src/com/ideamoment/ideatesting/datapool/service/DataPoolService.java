@@ -78,23 +78,25 @@ public class DataPoolService {
                     excelSheet.setName(sheetName);
                     excelSheet.setSheetIndex(i);
 
-                    int rowCount = sheet.getLastRowNum();
+                    int rowCount = sheet.getLastRowNum() + 1;
+                    boolean isFirstRow = true;
                     for(int j=0; j<rowCount; j++) {
                         Row row = sheet.getRow(j);
                         ExcelRow excelRow = new ExcelRow();
                         excelRow.setRowNo(j);
-                        boolean isFirstRow = true;
+                        
                         if(row != null) {
                             if(isFirstRow) {
                                 excelRow.setHeader(true);
                             }
 
                             int cellCount = row.getLastCellNum();
+                            boolean isFirstCell = true;
                             for(int k=0; k<cellCount; k++) {
                                 Cell cell = row.getCell(k);
                                 ExcelCell excelCell = new ExcelCell();
                                 excelCell.setColumn(k);
-                                boolean isFirstCell = true;
+                                
                                 if(cell != null) {
                                     Object value = null;
 

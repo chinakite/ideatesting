@@ -265,9 +265,27 @@
 </script>
 
 <script id="preivewFileHeaderTmpl" type="text/html">
-    {{each datas as row i}}
-        
+    <tr>
+        {{each cells as cell}}
+            <th>{{cell.value}}</th>
+        {{/each}}
+    </tr>
+</script>
+
+<script id="preivewFileDataRowTmpl" type="text/html">
+    {{each rows as row}}
+        <tr>
+            {{each row.cells as cell}}
+                <td>{{cell.value}}</td>
+            {{/each}}
+        </tr>
     {{/each}}
+</script>
+
+<script id="preivewFileCollapsedRowTmpl" type="text/html">
+    <tr>
+        <td colspan="{{columnCount}}" align="center">. . .</td>
+    </tr>
 </script>
 
 </body>

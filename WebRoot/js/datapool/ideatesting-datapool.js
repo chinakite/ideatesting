@@ -183,12 +183,47 @@ $(document).ready(function(){
                 },
                 function(json){
 					var excelData = $.parseJSON(json);
-					var sheets = excelData.sheets;
-					var selectorHtml = template('sheetSelectorTmpl', sheets);
-					alert(selectorHtml);
+					var data = excelData.data;
+					var selectorHtml = template('sheetSelectorTmpl', data);
 					$('#sheetNames').html(selectorHtml);
-					
-					
+					$('#sheetNames').selectpicker('refresh');
+					var sheets = data.sheets;
+					if(sheets && sheets.length > 0) {
+						var sheet = sheets[0];
+						var rows = sheet.rows;
+						if(rows && rows.length > 0) {
+							var header = rows[0];
+							var headerHtml = template('preivewFileHeaderTmpl', header);
+							$('#dataPreviewTbl thead').html(headerHtml);
+
+							$('#dataPreviewTbl tbody').empty();
+
+							var topRows = [];
+							if(rows.length > 5) {
+								for(var i=1; i<3; i++) {
+								    topRows.push(rows[i]);
+								}
+							    var topRowsHtml = template('preivewFileDataRowTmpl', {rows: topRows});
+								$('#dataPreviewTbl tbody').append(topRowsHtml);
+								
+								var collapsedHtml = template('preivewFileCollapsedRowTmpl', {columnCount: header.cells.length});
+								$('#dataPreviewTbl tbody').append(collapsedHtml);
+								
+								var bottomRows=[];
+								for(var i=rows.length-2; i<rows.length; i++) {
+								    bottomRows.push(rows[i]);
+								}
+							    var bottomRowsHtml = template('preivewFileDataRowTmpl', {rows: bottomRows});
+								$('#dataPreviewTbl tbody').append(bottomRowsHtml);
+							}else if(rows.length > 1){
+								for(var i=1; i<rows.length; i++) {
+								    topRows.push(rows[i]);
+								}
+							    var rowsHtml = template('preivewFileDataRowTmpl', {rows: topRows});
+								$('#dataPreviewTbl tbody').html(rowsHtml);
+							}
+						}
+					}
                 }
             );
         }
