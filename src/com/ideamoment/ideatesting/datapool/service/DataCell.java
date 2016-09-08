@@ -3,13 +3,13 @@ package com.ideamoment.ideatesting.datapool.service;
 /**
  * Created by zhangzhonghua on 2016/8/31.
  */
-public class ExcelCell {
+public class DataCell {
 	
 	private Integer column = null;
     
     private Object value = null;
     
-    private Integer dataType = ExcelCellDataType.STRING;
+    private Integer dataType = DataCellDataType.STRING;
     
     private String prompt = null;
     

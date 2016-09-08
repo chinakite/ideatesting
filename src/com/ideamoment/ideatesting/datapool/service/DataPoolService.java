@@ -37,7 +37,15 @@ public class DataPoolService {
     }
 
     @IdeaJdbcTx
-    public void saveParam(String projectId, String name, String desc, String varName, String type, String value) {
+    public void saveParam(String projectId, 
+    					String name, 
+    					String desc, 
+    					String varName, 
+    					String type, 
+    					String value,
+    					String fileType,
+    					String fileUrl,
+    					int sheetNo) {
         Date curTime = new Date();
         String curUserId = "1";
 
@@ -53,19 +61,24 @@ public class DataPoolService {
         param.setModifierId(curUserId);
         if(ParamTypeDict.VALUE.equals(type)) {
             param.setValue(value);
+        }else if(ParamTypeDict.TABLE.equals(type)){
+        	TableData tableData = parseTableDataFile(fileUrl, type);
+        	saveTableData(tableData, sheetNo);
+        }else if(ParamTypeDict.LIST.equals(type)){
+        	parseListDataFile(fileUrl, type);
         }
 
         IdeaJdbc.save(param);
     }
 
     @IdeaJdbcTx
-    public ExcelData parseDataFile(String fileUrl, String type) {
+    public TableData parseTableDataFile(String fileUrl, String type) {
         if(ParamFileTypeDict.XLSX.equals(type) || ParamFileTypeDict.XLS.equals(type)) {
             String webRoot = IdeaApplicationContext.getInstance().getWebRoot();
             fileUrl = webRoot + fileUrl;
 
             try {
-                ExcelData excelData = new ExcelData();
+                TableData excelData = new TableData();
 
                 Workbook wb = ExcelUtils.getExcelWorkbook(fileUrl);
                 int sheetCount = wb.getNumberOfSheets();
@@ -74,7 +87,7 @@ public class DataPoolService {
                     Sheet sheet = wb.getSheetAt(i);
                     String sheetName = sheet.getSheetName();
 
-                    ExcelSheet excelSheet = new ExcelSheet();
+                    DataSheet excelSheet = new DataSheet();
                     excelSheet.setName(sheetName);
                     excelSheet.setSheetIndex(i);
 
@@ -82,7 +95,7 @@ public class DataPoolService {
                     boolean isFirstRow = true;
                     for(int j=0; j<rowCount; j++) {
                         Row row = sheet.getRow(j);
-                        ExcelRow excelRow = new ExcelRow();
+                        DataRow excelRow = new DataRow();
                         excelRow.setRowNo(j);
                         
                         if(row != null) {
@@ -94,7 +107,105 @@ public class DataPoolService {
                             boolean isFirstCell = true;
                             for(int k=0; k<cellCount; k++) {
                                 Cell cell = row.getCell(k);
-                                ExcelCell excelCell = new ExcelCell();
+                                DataCell excelCell = new DataCell();
+                                excelCell.setColumn(k);
+                                
+                                if(cell != null) {
+                                    Object value = null;
+
+                                    if(isFirstCell && !isFirstRow) {
+                                        excelCell.setIdentify(true);
+                                    }
+                                    isFirstCell = false;
+
+                                    int cellType = cell.getCellType();
+                                    //TODO: 日期类型需要处理
+                                    switch(cellType) {
+                                        case Cell.CELL_TYPE_NUMERIC :
+                                            double doubleVal = cell.getNumericCellValue();
+                                            long longVal = Math.round(doubleVal);
+                                            if(Double.parseDouble(longVal + ".0") == doubleVal){
+                                                value = longVal;
+                                            }else{
+                                                value = doubleVal;
+                                            }
+                                            value = String.valueOf(value);
+                                            break;
+                                        case Cell.CELL_TYPE_BOOLEAN :
+                                            boolean boolVal = cell.getBooleanCellValue();
+                                            value = String.valueOf(boolVal);
+                                            break;
+                                        case Cell.CELL_TYPE_STRING :
+                                            value = cell.getStringCellValue();
+                                            break;
+                                        case Cell.CELL_TYPE_BLANK :
+                                            value = "";
+                                            break;
+                                        case Cell.CELL_TYPE_FORMULA :
+                                            cell.setCellType(Cell.CELL_TYPE_STRING);
+                                            value = cell.getStringCellValue();
+                                            break;
+                                        default :
+                                            value = cell.getStringCellValue();
+                                            break;
+                                    }
+                                    excelCell.setValue(value);
+                                }
+                                excelRow.addExcelCell(excelCell);
+                            }
+                            isFirstRow = false;
+                        }
+                        excelSheet.addExcelRow(excelRow);
+                    }
+                    excelData.addExcelSheet(excelSheet);
+                }
+
+                return excelData;
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new DataPoolException(DataPoolExceptionCode.DATAFILE_ERROR, "Parse xlsx error.", e);
+            }
+        }
+        return null;
+    }
+    
+    @IdeaJdbcTx
+    public TableData parseListDataFile(String fileUrl, String type) {
+        if(ParamFileTypeDict.XLSX.equals(type) || ParamFileTypeDict.XLS.equals(type)) {
+            String webRoot = IdeaApplicationContext.getInstance().getWebRoot();
+            fileUrl = webRoot + fileUrl;
+
+            try {
+                TableData excelData = new TableData();
+
+                Workbook wb = ExcelUtils.getExcelWorkbook(fileUrl);
+                int sheetCount = wb.getNumberOfSheets();
+
+                for(int i=0; i<sheetCount; i++) {
+                    Sheet sheet = wb.getSheetAt(i);
+                    String sheetName = sheet.getSheetName();
+
+                    DataSheet excelSheet = new DataSheet();
+                    excelSheet.setName(sheetName);
+                    excelSheet.setSheetIndex(i);
+
+                    int rowCount = sheet.getLastRowNum() + 1;
+                    boolean isFirstRow = true;
+                    for(int j=0; j<rowCount; j++) {
+                        Row row = sheet.getRow(j);
+                        DataRow excelRow = new DataRow();
+                        excelRow.setRowNo(j);
+                        
+                        if(row != null) {
+                            if(isFirstRow) {
+                                excelRow.setHeader(true);
+                            }
+
+                            int cellCount = row.getLastCellNum();
+                            boolean isFirstCell = true;
+                            for(int k=0; k<cellCount; k++) {
+                                Cell cell = row.getCell(k);
+                                DataCell excelCell = new DataCell();
                                 excelCell.setColumn(k);
                                 
                                 if(cell != null) {
@@ -156,9 +267,16 @@ public class DataPoolService {
         return null;
     }
 
+    @IdeaJdbcTx
+    public void saveTableData(TableData tableData, int sheetNo) {
+    	DataSheet sheet = tableData.getSheet(sheetNo);
+    	
+    	
+    }
+    
     public static void main(String[] args) {
         DataPoolService dps = new DataPoolService();
-        ExcelData data = dps.parseDataFile("D:\\testImport.xlsx", "0");
+        TableData data = dps.parseTableDataFile("D:\\testImport.xlsx", "0");
         System.out.println(data);
     }
 }

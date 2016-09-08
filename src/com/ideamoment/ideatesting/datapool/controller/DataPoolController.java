@@ -22,6 +22,7 @@ import com.ideamoment.ideatesting.BaseController;
 import com.ideamoment.ideatesting.model.Param;
 import com.ideamoment.ideatesting.model.Project;
 import com.ideamoment.ideatesting.model.dict.ParamFileTypeDict;
+import com.ideamoment.ideatesting.model.dict.ParamTypeDict;
 import com.ideamoment.ideatesting.project.service.ProjectService;
 import com.ideamoment.ideatesting.util.DataTableSource;
 import com.ideamoment.ideatesting.util.ExcelUtils;
@@ -68,14 +69,20 @@ public class DataPoolController extends BaseController{
             String desc,
             String varName,
             String type,
-            String value) {
-        dataPoolService.saveParam(projectId, name, desc, varName, type, value);
+            String value,
+            String fileType,
+            String fileUrl,
+            int sheetNo) {
+        dataPoolService.saveParam(projectId, name, desc, varName, type, value, fileType, fileUrl, sheetNo);
         return JsonData.SUCCESS;
     }
 
     @RequestMapping(value="/previewFile", method=RequestMethod.POST)
-    public JsonData previewFile(String fileUrl, String fileType) {
-        ExcelData excelData = dataPoolService.parseDataFile(fileUrl, fileType);
-        return JsonData.success(excelData);
+    public JsonData previewFile(String type, String fileUrl, String fileType) {
+    	if(ParamTypeDict.TABLE.equals(type)) {
+    		TableData excelData = dataPoolService.parseTableDataFile(fileUrl, fileType);
+            return JsonData.success(excelData);
+    	}
+        return JsonData.SUCCESS;
     }
 }

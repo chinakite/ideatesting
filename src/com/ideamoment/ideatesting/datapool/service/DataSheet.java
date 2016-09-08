@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by zhangzhonghua on 2016/8/31.
  */
-public class ExcelSheet {
+public class DataSheet {
 	
 	private String name;
 
@@ -14,9 +14,9 @@ public class ExcelSheet {
 	
 	private int maxRowNo = 0;
 
-    private List<ExcelRow> rows = new ArrayList<ExcelRow>();
+    private List<DataRow> rows = new ArrayList<DataRow>();
 
-    public void addExcelRow(ExcelRow row) {
+    public void addExcelRow(DataRow row) {
     	 if (row != null) {
              if (row.getRowNo() > maxRowNo) {
             	 maxRowNo = row.getRowNo();
@@ -25,10 +25,10 @@ public class ExcelSheet {
         this.rows.add(row);
     }
 
-    public void addExcelRows(List<ExcelRow> rowList) {
+    public void addExcelRows(List<DataRow> rowList) {
 
         if (rowList != null) {
-            for (ExcelRow row : rowList) {
+            for (DataRow row : rowList) {
             	addExcelRow(row);
             }
         }
@@ -54,11 +54,11 @@ public class ExcelSheet {
 		return rows.size();
 	}
 
-	public List<ExcelRow> getRows() {
+	public List<DataRow> getRows() {
 		return rows;
 	}
 
-	public void setRows(List<ExcelRow> rows) {
+	public void setRows(List<DataRow> rows) {
 		this.rows = rows;
 	}
 

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by zhangzhonghua on 2016/8/31.
  */
-public class ExcelRow {
+public class DataRow {
 	
 	private int             maxColumnNo = 0;
 	
@@ -15,18 +15,18 @@ public class ExcelRow {
     /**
      * 单元格列表
      */
-    private List<ExcelCell> cells = new ArrayList<ExcelCell>();
+    private List<DataCell> cells = new ArrayList<DataCell>();
     
     /**
      * 是否表头
      */
     private boolean header = false;
     
-    public List<ExcelCell> getCells() {
+    public List<DataCell> getCells() {
         return this.cells;
     }
     
-    public ExcelCell getCell(int i) {
+    public DataCell getCell(int i) {
         if(cells == null || cells.size() == 0) {
             return null;
         }else{
@@ -42,7 +42,7 @@ public class ExcelRow {
         }
     }
     
-    public void addExcelCell(ExcelCell cell) {
+    public void addExcelCell(DataCell cell) {
 
         if (cell != null) {
             if (cell.getColumn() > maxColumnNo) {
@@ -52,10 +52,10 @@ public class ExcelRow {
         this.cells.add(cell);
     }
 
-    public void addExcelCells(List<ExcelCell> cellList) {
+    public void addExcelCells(List<DataCell> cellList) {
 
         if (cellList != null) {
-            for (ExcelCell cell : cellList) {
+            for (DataCell cell : cellList) {
                 addExcelCell(cell);
             }
         }

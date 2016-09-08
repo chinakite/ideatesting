@@ -21,6 +21,9 @@ public class ParamTableValue extends HistoriableEntity {
 	
 	@Property(dataItem="C_VALUE", type=DataItemType.VARCHAR, length=1000)
 	private String value;
+	
+	@Property(dataItem="C_ROW_NO", type=DataItemType.INT)
+	private int rowNo;
 
 	public String getParamId() {
 		return paramId;
@@ -44,6 +47,14 @@ public class ParamTableValue extends HistoriableEntity {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public int getRowNo() {
+		return rowNo;
+	}
+
+	public void setRowNo(int rowNo) {
+		this.rowNo = rowNo;
 	}
 	
 }

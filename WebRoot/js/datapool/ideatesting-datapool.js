@@ -51,6 +51,9 @@ IDEATESTING.datapool.saveParam = function() {
     var desc = $('#desc').val();
     var varName = $('#varName').val();
     var type = $('#type').val();
+    var fileType = $('#fileType').val();
+    var sheetNo = $('#sheetNo').val();
+    var fileUrl = $('#importFileServerUrl').val();
 
     $.post(
         commonVars.ctx + '/project/' + dataPoolPageVars.projectId + '/param',
@@ -58,7 +61,11 @@ IDEATESTING.datapool.saveParam = function() {
             'name': name,
             'desc': desc,
             'varName': varName,
-            'type': type
+            'type': type,
+            'value': value,
+            'fileType': fileType,
+            'fileUrl': fileUrl,
+            'sheetNo': sheetNo
         },
         function(json) {
             alert('保存成功');
@@ -178,6 +185,7 @@ $(document).ready(function(){
             $.post(
                 commonVars.ctx + '/project/' + dataPoolPageVars.projectId + '/previewFile',
                 {
+                    type: type,
                     fileUrl: fileUrl,
                     fileType: fileType
                 },

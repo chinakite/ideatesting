@@ -231,6 +231,7 @@
 	                                <select id="sheetNames" name="sheetNames" class="selectPicker">
 
 	                                </select>
+	                                <input type="hidden" id="sheetNo" name="sheetNo"/>
 	                            </div>
 	                            <table id="dataPreviewTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>

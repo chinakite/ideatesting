@@ -7,7 +7,7 @@ package com.ideamoment.ideatesting.datapool.service;
  * @author Chinakite
  *
  */
-public class ExcelCellDataType {
+public class DataCellDataType {
 	
 	public static final int STRING = 0;
 
