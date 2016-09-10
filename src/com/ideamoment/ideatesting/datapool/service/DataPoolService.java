@@ -1,7 +1,6 @@
 package com.ideamoment.ideatesting.datapool.service;
 
 import com.ideamoment.ideadp.appcontext.IdeaApplicationContext;
-import com.ideamoment.ideadp.restful.json.JsonData;
 import com.ideamoment.ideajdbc.IdeaJdbc;
 import com.ideamoment.ideajdbc.action.Page;
 import com.ideamoment.ideajdbc.spring.IdeaJdbcTx;
@@ -9,6 +8,7 @@ import com.ideamoment.ideatesting.datapool.DataPoolException;
 import com.ideamoment.ideatesting.datapool.DataPoolExceptionCode;
 import com.ideamoment.ideatesting.datapool.dao.DataPoolDao;
 import com.ideamoment.ideatesting.model.Param;
+import com.ideamoment.ideatesting.model.ParamTableValue;
 import com.ideamoment.ideatesting.model.dict.ParamFileTypeDict;
 import com.ideamoment.ideatesting.model.dict.ParamTypeDict;
 import com.ideamoment.ideatesting.util.ExcelUtils;
@@ -151,11 +151,11 @@ public class DataPoolService {
                                     }
                                     excelCell.setValue(value);
                                 }
-                                excelRow.addExcelCell(excelCell);
+                                excelRow.addDataCell(excelCell);
                             }
                             isFirstRow = false;
                         }
-                        excelSheet.addExcelRow(excelRow);
+                        excelSheet.addDataRow(excelRow);
                     }
                     excelData.addExcelSheet(excelSheet);
                 }
@@ -249,11 +249,11 @@ public class DataPoolService {
                                     }
                                     excelCell.setValue(value);
                                 }
-                                excelRow.addExcelCell(excelCell);
+                                excelRow.addDataCell(excelCell);
                             }
                             isFirstRow = false;
                         }
-                        excelSheet.addExcelRow(excelRow);
+                        excelSheet.addDataRow(excelRow);
                     }
                     excelData.addExcelSheet(excelSheet);
                 }
@@ -270,8 +270,14 @@ public class DataPoolService {
     @IdeaJdbcTx
     public void saveTableData(TableData tableData, int sheetNo) {
     	DataSheet sheet = tableData.getSheet(sheetNo);
-    	
-    	
+    	for(int i=0; i<sheet.getRowCount(); i++) {
+            DataRow row = sheet.getRow(i);
+            for(int j=0; j<row.getCellCount(); j++) {
+                DataCell cell = row.getCell(j);
+                ParamTableValue tableValue = new ParamTableValue();
+
+            }
+        }
     }
     
     public static void main(String[] args) {

@@ -34,7 +34,7 @@ public class DataRow {
         }
     }
     
-    public int cellSize() {
+    public int getCellCount() {
         if(cells == null) {
             return 0;
         }else{
@@ -42,7 +42,7 @@ public class DataRow {
         }
     }
     
-    public void addExcelCell(DataCell cell) {
+    public void addDataCell(DataCell cell) {
 
         if (cell != null) {
             if (cell.getColumn() > maxColumnNo) {
@@ -52,15 +52,15 @@ public class DataRow {
         this.cells.add(cell);
     }
 
-    public void addExcelCells(List<DataCell> cellList) {
+    public void addDataCells(List<DataCell> cellList) {
 
         if (cellList != null) {
             for (DataCell cell : cellList) {
-                addExcelCell(cell);
+                addDataCell(cell);
             }
         }
     }
-    
+
     /**
      * @return the header
      */

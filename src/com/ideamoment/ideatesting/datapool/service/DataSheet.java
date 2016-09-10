@@ -16,7 +16,7 @@ public class DataSheet {
 
     private List<DataRow> rows = new ArrayList<DataRow>();
 
-    public void addExcelRow(DataRow row) {
+    public void addDataRow(DataRow row) {
     	 if (row != null) {
              if (row.getRowNo() > maxRowNo) {
             	 maxRowNo = row.getRowNo();
@@ -25,14 +25,21 @@ public class DataSheet {
         this.rows.add(row);
     }
 
-    public void addExcelRows(List<DataRow> rowList) {
+    public void addDataRows(List<DataRow> rowList) {
 
         if (rowList != null) {
             for (DataRow row : rowList) {
-            	addExcelRow(row);
+            	addDataRow(row);
             }
         }
     }
+
+	public DataRow getRow(int rowIndex) {
+		if(rowIndex >= this.rows.size()) {
+			throw new IllegalArgumentException();
+		}
+		return this.rows.get(rowIndex);
+	}
     
 	public String getName() {
 		return name;
