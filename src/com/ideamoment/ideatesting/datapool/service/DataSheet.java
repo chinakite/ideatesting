@@ -14,6 +14,8 @@ public class DataSheet {
 	
 	private int maxRowNo = 0;
 
+	private DataRow headerRow;
+
     private List<DataRow> rows = new ArrayList<DataRow>();
 
     public void addDataRow(DataRow row) {
@@ -35,8 +37,11 @@ public class DataSheet {
     }
 
 	public DataRow getRow(int rowIndex) {
+		if(this.rows == null) {
+			return null;
+		}
 		if(rowIndex >= this.rows.size()) {
-			throw new IllegalArgumentException();
+			throw new IndexOutOfBoundsException("Index: " + rowIndex + ", Size: " + this.rows.size());
 		}
 		return this.rows.get(rowIndex);
 	}
@@ -69,4 +74,11 @@ public class DataSheet {
 		this.rows = rows;
 	}
 
+	public DataRow getHeaderRow() {
+		return headerRow;
+	}
+
+	public void setHeaderRow(DataRow headerRow) {
+		this.headerRow = headerRow;
+	}
 }

@@ -185,20 +185,68 @@ public class DataPoolService {
                     Sheet sheet = wb.getSheetAt(i);
                     String sheetName = sheet.getSheetName();
 
-                    DataSheet excelSheet = new DataSheet();
-                    excelSheet.setName(sheetName);
-                    excelSheet.setSheetIndex(i);
+                    DataSheet dataSheet = new DataSheet();
+                    dataSheet.setName(sheetName);
+                    dataSheet.setSheetIndex(i);
 
                     int rowCount = sheet.getLastRowNum() + 1;
+
+                    //处理Header
+                    Row firstRow = sheet.getRow(0);
+                    DataRow headerRow = new DataRow();
+                    headerRow.setHeader(true);
+                    int cellCount = firstRow.getLastCellNum();
+                    for(int k=0; k<cellCount; k++) {
+                        Cell cell = firstRow.getCell(k);
+                        if(cell != null) {
+                            Object value = null;
+
+                            int cellType = cell.getCellType();
+                            //TODO: 日期类型需要处理
+                            switch(cellType) {
+                                case Cell.CELL_TYPE_NUMERIC :
+                                    double doubleVal = cell.getNumericCellValue();
+                                    long longVal = Math.round(doubleVal);
+                                    if(Double.parseDouble(longVal + ".0") == doubleVal){
+                                        value = longVal;
+                                    }else{
+                                        value = doubleVal;
+                                    }
+                                    value = String.valueOf(value);
+                                    break;
+                                case Cell.CELL_TYPE_BOOLEAN :
+                                    boolean boolVal = cell.getBooleanCellValue();
+                                    value = String.valueOf(boolVal);
+                                    break;
+                                case Cell.CELL_TYPE_STRING :
+                                    value = cell.getStringCellValue();
+                                    break;
+                                case Cell.CELL_TYPE_BLANK :
+                                    value = "";
+                                    break;
+                                case Cell.CELL_TYPE_FORMULA :
+                                    cell.setCellType(Cell.CELL_TYPE_STRING);
+                                    value = cell.getStringCellValue();
+                                    break;
+                                default :
+                                    value = cell.getStringCellValue();
+                                    break;
+                            }
+                            excelCell.setValue(value);
+                        }
+
+                    }
+
+
                     boolean isFirstRow = true;
                     for(int j=0; j<rowCount; j++) {
                         Row row = sheet.getRow(j);
-                        DataRow excelRow = new DataRow();
-                        excelRow.setRowNo(j);
+                        DataRow dataRow = new DataRow();
+                        dataRow.setRowNo(j);
                         
                         if(row != null) {
                             if(isFirstRow) {
-                                excelRow.setHeader(true);
+                                dataRow.setHeader(true);
                             }
 
                             int cellCount = row.getLastCellNum();
@@ -249,13 +297,13 @@ public class DataPoolService {
                                     }
                                     excelCell.setValue(value);
                                 }
-                                excelRow.addDataCell(excelCell);
+                                dataRow.addDataCell(excelCell);
                             }
                             isFirstRow = false;
                         }
-                        excelSheet.addDataRow(excelRow);
+                        dataSheet.addDataRow(dataRow);
                     }
-                    excelData.addExcelSheet(excelSheet);
+                    excelData.addExcelSheet(dataSheet);
                 }
 
                 return excelData;
@@ -275,7 +323,10 @@ public class DataPoolService {
             for(int j=0; j<row.getCellCount(); j++) {
                 DataCell cell = row.getCell(j);
                 ParamTableValue tableValue = new ParamTableValue();
-
+                tableValue.setRowNo(j);
+                tableValue.setValue(cell.getValue().toString());
+//                tableValue.setParamId();
+//                tableValue.setColumn();
             }
         }
     }

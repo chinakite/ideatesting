@@ -40,8 +40,8 @@ public class GenerateDb {
 //        			CaseResult.class,
 //        			CommandResult.class,
 //                    SchemaExecution.class,
-                    Param.class,
-                    ParamListValue.class,
+//                    Param.class,
+//                    ParamListValue.class,
                     ParamTableValue.class
                 };
 
