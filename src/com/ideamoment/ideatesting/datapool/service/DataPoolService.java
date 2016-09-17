@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zhangzhonghua on 2016/8/29.
@@ -59,20 +60,24 @@ public class DataPoolService {
         param.setCreatorId(curUserId);
         param.setModifyTime(curTime);
         param.setModifierId(curUserId);
+        
         if(ParamTypeDict.VALUE.equals(type)) {
             param.setValue(value);
-        }else if(ParamTypeDict.TABLE.equals(type)){
-        	TableData tableData = parseTableDataFile(fileUrl, type);
-        	saveTableData(tableData, sheetNo);
+        }
+        
+        IdeaJdbc.save(param);
+        
+        if(ParamTypeDict.TABLE.equals(type)){
+        	TableData tableData = parseTableDataFile(fileUrl, fileType);
+        	saveTableData(tableData, sheetNo, param.getId(), curTime);
         }else if(ParamTypeDict.LIST.equals(type)){
         	parseListDataFile(fileUrl, type);
         }
-
-        IdeaJdbc.save(param);
+        
     }
 
     @IdeaJdbcTx
-    public TableData parseTableDataFile(String fileUrl, String type) {
+    public TableData parseListDataFile(String fileUrl, String type) {
         if(ParamFileTypeDict.XLSX.equals(type) || ParamFileTypeDict.XLS.equals(type)) {
             String webRoot = IdeaApplicationContext.getInstance().getWebRoot();
             fileUrl = webRoot + fileUrl;
@@ -170,7 +175,7 @@ public class DataPoolService {
     }
     
     @IdeaJdbcTx
-    public TableData parseListDataFile(String fileUrl, String type) {
+    public TableData parseTableDataFile(String fileUrl, String type) {
         if(ParamFileTypeDict.XLSX.equals(type) || ParamFileTypeDict.XLS.equals(type)) {
             String webRoot = IdeaApplicationContext.getInstance().getWebRoot();
             fileUrl = webRoot + fileUrl;
@@ -195,111 +200,16 @@ public class DataPoolService {
                     Row firstRow = sheet.getRow(0);
                     DataRow headerRow = new DataRow();
                     headerRow.setHeader(true);
-                    int cellCount = firstRow.getLastCellNum();
-                    for(int k=0; k<cellCount; k++) {
-                        Cell cell = firstRow.getCell(k);
-                        if(cell != null) {
-                            Object value = null;
+                    parseDataCells(firstRow, headerRow);
+                    dataSheet.setHeaderRow(headerRow);
 
-                            int cellType = cell.getCellType();
-                            //TODO: 日期类型需要处理
-                            switch(cellType) {
-                                case Cell.CELL_TYPE_NUMERIC :
-                                    double doubleVal = cell.getNumericCellValue();
-                                    long longVal = Math.round(doubleVal);
-                                    if(Double.parseDouble(longVal + ".0") == doubleVal){
-                                        value = longVal;
-                                    }else{
-                                        value = doubleVal;
-                                    }
-                                    value = String.valueOf(value);
-                                    break;
-                                case Cell.CELL_TYPE_BOOLEAN :
-                                    boolean boolVal = cell.getBooleanCellValue();
-                                    value = String.valueOf(boolVal);
-                                    break;
-                                case Cell.CELL_TYPE_STRING :
-                                    value = cell.getStringCellValue();
-                                    break;
-                                case Cell.CELL_TYPE_BLANK :
-                                    value = "";
-                                    break;
-                                case Cell.CELL_TYPE_FORMULA :
-                                    cell.setCellType(Cell.CELL_TYPE_STRING);
-                                    value = cell.getStringCellValue();
-                                    break;
-                                default :
-                                    value = cell.getStringCellValue();
-                                    break;
-                            }
-                            excelCell.setValue(value);
-                        }
-
-                    }
-
-
-                    boolean isFirstRow = true;
-                    for(int j=0; j<rowCount; j++) {
+                    for(int j=1; j<rowCount; j++) {
                         Row row = sheet.getRow(j);
                         DataRow dataRow = new DataRow();
                         dataRow.setRowNo(j);
                         
                         if(row != null) {
-                            if(isFirstRow) {
-                                dataRow.setHeader(true);
-                            }
-
-                            int cellCount = row.getLastCellNum();
-                            boolean isFirstCell = true;
-                            for(int k=0; k<cellCount; k++) {
-                                Cell cell = row.getCell(k);
-                                DataCell excelCell = new DataCell();
-                                excelCell.setColumn(k);
-                                
-                                if(cell != null) {
-                                    Object value = null;
-
-                                    if(isFirstCell && !isFirstRow) {
-                                        excelCell.setIdentify(true);
-                                    }
-                                    isFirstCell = false;
-
-                                    int cellType = cell.getCellType();
-                                    //TODO: 日期类型需要处理
-                                    switch(cellType) {
-                                        case Cell.CELL_TYPE_NUMERIC :
-                                            double doubleVal = cell.getNumericCellValue();
-                                            long longVal = Math.round(doubleVal);
-                                            if(Double.parseDouble(longVal + ".0") == doubleVal){
-                                                value = longVal;
-                                            }else{
-                                                value = doubleVal;
-                                            }
-                                            value = String.valueOf(value);
-                                            break;
-                                        case Cell.CELL_TYPE_BOOLEAN :
-                                            boolean boolVal = cell.getBooleanCellValue();
-                                            value = String.valueOf(boolVal);
-                                            break;
-                                        case Cell.CELL_TYPE_STRING :
-                                            value = cell.getStringCellValue();
-                                            break;
-                                        case Cell.CELL_TYPE_BLANK :
-                                            value = "";
-                                            break;
-                                        case Cell.CELL_TYPE_FORMULA :
-                                            cell.setCellType(Cell.CELL_TYPE_STRING);
-                                            value = cell.getStringCellValue();
-                                            break;
-                                        default :
-                                            value = cell.getStringCellValue();
-                                            break;
-                                    }
-                                    excelCell.setValue(value);
-                                }
-                                dataRow.addDataCell(excelCell);
-                            }
-                            isFirstRow = false;
+                            parseDataCells(row, dataRow);
                         }
                         dataSheet.addDataRow(dataRow);
                     }
@@ -315,18 +225,103 @@ public class DataPoolService {
         return null;
     }
 
+	/**
+	 * @param row
+	 * @param dataRow
+	 */
+	private void parseDataCells(Row row, DataRow dataRow) {
+		int cellCount = row.getLastCellNum();
+		for(int k=0; k<cellCount; k++) {
+			DataCell dataCell = new DataCell();
+		    Cell cell = row.getCell(k);
+		    dataCell.setColumn(k);
+		    if(cell != null) {
+		        Object value = null;
+
+		        //TODO: 此处应替换为唯一索引接口
+		        if(k == 0 && !dataRow.isHeader()) {
+		        	dataCell.setIdentify(true);
+		        }
+		        
+		        int cellType = cell.getCellType();
+		        //TODO: 日期类型需要处理
+		        switch(cellType) {
+		            case Cell.CELL_TYPE_NUMERIC :
+		                double doubleVal = cell.getNumericCellValue();
+		                long longVal = Math.round(doubleVal);
+		                if(Double.parseDouble(longVal + ".0") == doubleVal){
+		                    value = longVal;
+		                }else{
+		                    value = doubleVal;
+		                }
+		                value = String.valueOf(value);
+		                dataCell.setDataType(DataCellDataType.NUMBER);
+		                break;
+		            case Cell.CELL_TYPE_BOOLEAN :
+		                boolean boolVal = cell.getBooleanCellValue();
+		                value = String.valueOf(boolVal);
+		                dataCell.setDataType(DataCellDataType.BOOLEAN);
+		                break;
+		            case Cell.CELL_TYPE_STRING :
+		                value = cell.getStringCellValue();
+		                dataCell.setDataType(DataCellDataType.STRING);
+		                break;
+		            case Cell.CELL_TYPE_BLANK :
+		                value = "";
+		                dataCell.setDataType(DataCellDataType.STRING);
+		                break;
+		            case Cell.CELL_TYPE_FORMULA :
+		                cell.setCellType(Cell.CELL_TYPE_STRING);
+		                value = cell.getStringCellValue();
+		                dataCell.setDataType(DataCellDataType.STRING);
+		                break;
+		            default :
+		                value = cell.getStringCellValue();
+		                dataCell.setDataType(DataCellDataType.STRING);
+		                break;
+		        }
+		        dataCell.setValue(value);
+		    }
+		    dataRow.addDataCell(dataCell);
+		}
+	}
+
     @IdeaJdbcTx
-    public void saveTableData(TableData tableData, int sheetNo) {
+    public void saveTableData(TableData tableData, int sheetNo, String paramId, Date curTime) {
+    	String curUserId = "1";
+    	
     	DataSheet sheet = tableData.getSheet(sheetNo);
+    	DataRow header = sheet.getHeaderRow();
+    	for(int j=0; j<header.getCellCount(); j++) {
+    		DataCell cell = header.getCell(j);
+            ParamTableValue tableValue = new ParamTableValue();
+            tableValue.setRowNo(-1);
+            tableValue.setCellNo(j);
+            tableValue.setValue(cell.getValue().toString());
+            tableValue.setParamId(paramId);
+            tableValue.setColumn(cell.getValue().toString());
+            tableValue.setCreateTime(curTime);
+            tableValue.setCreatorId(curUserId);
+            tableValue.setModifierId(curUserId);
+            tableValue.setModifyTime(curTime);
+            IdeaJdbc.save(tableValue);
+    	}
+    	
     	for(int i=0; i<sheet.getRowCount(); i++) {
             DataRow row = sheet.getRow(i);
             for(int j=0; j<row.getCellCount(); j++) {
                 DataCell cell = row.getCell(j);
                 ParamTableValue tableValue = new ParamTableValue();
-                tableValue.setRowNo(j);
+                tableValue.setRowNo(i);
+                tableValue.setCellNo(j);
                 tableValue.setValue(cell.getValue().toString());
-//                tableValue.setParamId();
-//                tableValue.setColumn();
+                tableValue.setParamId(paramId);
+                tableValue.setColumn(header.getCell(j).getValue().toString());
+                tableValue.setCreateTime(curTime);
+                tableValue.setCreatorId(curUserId);
+                tableValue.setModifierId(curUserId);
+                tableValue.setModifyTime(curTime);
+                IdeaJdbc.save(tableValue);
             }
         }
     }
@@ -336,4 +331,27 @@ public class DataPoolService {
         TableData data = dps.parseTableDataFile("D:\\testImport.xlsx", "0");
         System.out.println(data);
     }
+
+    @IdeaJdbcTx
+	public Param findParam(String paramId) {
+		return IdeaJdbc.find(Param.class, paramId);
+	}
+
+    @IdeaJdbcTx
+	public List<DataCell> listParamTableHeader(String paramId) {
+		List<DataCell> cells = dataPoolDao.listParamTableHeader(paramId);
+		return cells;
+	}
+
+    @IdeaJdbcTx
+	public List<DataCell> listParamTableValues(String paramId) {
+    	List<DataCell> cells = dataPoolDao.listParamTableValues(paramId);
+		return cells;
+	}
+
+    @IdeaJdbcTx
+	public Page<DataCell> pageParamTableValues(int curPage, int pageSize, String paramId) {
+		Page<DataCell> cells = dataPoolDao.pageParamTableValues(paramId, curPage, pageSize);
+		return cells;
+	}
 }

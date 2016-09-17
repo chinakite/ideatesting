@@ -122,16 +122,10 @@
                             </div>
                         </div>
 
-                        <table id="dataTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="paramValueTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>数据名称</th>
-                                <th>数据标识</th>
-                                <th>类型</th>
-                                <th>创建人</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -256,7 +250,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src='<idp:url value="/js/datapool/ideatesting-datapool.js"/>'></script>
+<script type="text/javascript" src='<idp:url value="/js/datapool/ideatesting-tableparam.js"/>'></script>
 
 <script id="sheetSelectorTmpl" type="text/html">
     {{each sheets as sheet i}}

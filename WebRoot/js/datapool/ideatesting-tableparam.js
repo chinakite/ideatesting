@@ -85,6 +85,17 @@ $(document).ready(function(){
     $('#menu_datapool').addClass('active-link');
 
     $('.selectPicker').selectpicker({});
+    
+    $.get(
+        commonVars.ctx + '/project/' + dataPoolPageVars.projectId + "/paramTableHeader",
+        {},
+        function(json){
+        	var respData = $.parseJSON(json);
+        	
+        	
+        	
+        }
+    );
 
     // Basic Data Tables with responsive plugin
     // -----------------------------------------------------------------

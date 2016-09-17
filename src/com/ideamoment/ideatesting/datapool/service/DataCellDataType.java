@@ -16,5 +16,7 @@ public class DataCellDataType {
 	public static final int DATE = 2;
 
 	public static final int DATETIME = 3;
+	
+	public static final int BOOLEAN = 4;
 
 }
