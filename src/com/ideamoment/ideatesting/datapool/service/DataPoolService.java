@@ -20,8 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zhangzhonghua on 2016/8/29.
@@ -338,20 +337,45 @@ public class DataPoolService {
 	}
 
     @IdeaJdbcTx
-	public List<DataCell> listParamTableHeader(String paramId) {
-		List<DataCell> cells = dataPoolDao.listParamTableHeader(paramId);
+	public List<ParamTableValue> listParamTableHeader(String paramId) {
+		List<ParamTableValue> cells = dataPoolDao.listParamTableHeader(paramId);
 		return cells;
 	}
 
     @IdeaJdbcTx
-	public List<DataCell> listParamTableValues(String paramId) {
-    	List<DataCell> cells = dataPoolDao.listParamTableValues(paramId);
+	public List<ParamTableValue> listParamTableValues(String paramId) {
+    	List<ParamTableValue> cells = dataPoolDao.listParamTableValues(paramId);
 		return cells;
 	}
 
     @IdeaJdbcTx
-	public Page<DataCell> pageParamTableValues(int curPage, int pageSize, String paramId) {
-		Page<DataCell> cells = dataPoolDao.pageParamTableValues(paramId, curPage, pageSize);
-		return cells;
+	public Page pageParamTableValues(int curPage, int pageSize, String paramId) {
+		List<ParamTableValue> cells = dataPoolDao.listParamTableValues(paramId, curPage, pageSize);
+
+        Map<Integer, List<ParamTableValue>> tempResult = new HashMap<Integer, List<ParamTableValue>>();
+
+        for(int i=0; i<cells.size(); i++) {
+            ParamTableValue tableValue = cells.get(i);
+            int rowNo = tableValue.getRowNo();
+            List<ParamTableValue> row = tempResult.get(rowNo);
+            if(row == null) {
+                row = new ArrayList<ParamTableValue>();
+                tempResult.put(rowNo, row);
+            }
+            row.add(tableValue);
+        }
+
+        List<List<ParamTableValue>> result = new ArrayList<List<ParamTableValue>>();
+        for(Integer key : tempResult.keySet()) {
+            result.add(tempResult.get(key));
+        }
+
+        Page page = new Page();
+        page.setCurrentPage(curPage);
+        page.setData(result);
+        page.setPageSize(pageSize);
+        long rowCount = dataPoolDao.countParamTableRow(paramId);
+        page.setTotalRecord(rowCount);
+		return page;
 	}
 }

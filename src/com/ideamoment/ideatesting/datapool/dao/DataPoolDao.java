@@ -8,6 +8,7 @@ import com.ideamoment.ideatesting.model.Param;
 
 import java.util.List;
 
+import com.ideamoment.ideatesting.model.ParamTableValue;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,21 +23,29 @@ public class DataPoolDao {
                         .pageTo(Param.class, curPage, pageSize);
     }
 
-	public List<DataCell> listParamTableHeader(String paramId) {
+	public List<ParamTableValue> listParamTableHeader(String paramId) {
 		String sql = "SELECT * FROM T_PARAM_TABLE WHERE C_PARAM_ID = :paramId AND C_ROW_NO = -1 ORDER BY C_CELL_NO ASC";
 		return IdeaJdbc.query(sql).setParameter("paramId", paramId)
-				       .listTo(DataCell.class);
+				       .listTo(ParamTableValue.class);
 	}
 
-	public List<DataCell> listParamTableValues(String paramId) {
+	public List<ParamTableValue> listParamTableValues(String paramId) {
 		String sql = "SELECT * FROM T_PARAM_TABLE WHERE C_PARAM_ID = :paramId AND C_ROW_NO > -1 ORDER BY C_ROW_NO ASC, C_CELL_NO ASC";
 		return IdeaJdbc.query(sql).setParameter("paramId", paramId)
-				       .listTo(DataCell.class);
+				       .listTo(ParamTableValue.class);
 	}
 
-	public Page<DataCell> pageParamTableValues(String paramId, int curPage, int pageSize) {
-		String sql = "SELECT * FROM T_PARAM_TABLE WHERE C_PARAM_ID = :paramId AND C_ROW_NO > -1 ORDER BY C_ROW_NO ASC, C_CELL_NO ASC";
-		return IdeaJdbc.query(sql).setParameter("paramId", paramId)
-				       .pageTo(DataCell.class, curPage, pageSize);
+	public List<ParamTableValue> listParamTableValues(String paramId, int startRow, int endRow) {
+		String sql = "SELECT * FROM T_PARAM_TABLE WHERE C_PARAM_ID = :paramId AND C_ROW_NO >= :startRow and C_ROW_NO < :endRow ORDER BY C_ROW_NO ASC, C_CELL_NO ASC";
+		return IdeaJdbc.query(sql)
+					   .setParameter("paramId", paramId)
+				       .setParameter("startRow", startRow)
+				       .setParameter("endRow", endRow)
+				       .listTo(ParamTableValue.class);
+	}
+
+	public long countParamTableRow(String paramId) {
+		String sql = "select max(C_ROW_NO) from T_PARAM_TABLE where C_PARAM_ID = :paramId";
+		return (Long)IdeaJdbc.query(sql).setParameter("paramId", paramId).uniqueValue();
 	}
 }

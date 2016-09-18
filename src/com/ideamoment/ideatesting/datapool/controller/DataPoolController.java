@@ -3,6 +3,7 @@ package com.ideamoment.ideatesting.datapool.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import com.ideamoment.ideatesting.model.ParamTableValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,6 +88,7 @@ public class DataPoolController extends BaseController{
 
         HashMap<String, Object> model = new HashMap<String, Object>();
         model.put("project", project);
+        model.put("paramId", paramId);
 
         return new ModelAndView("/WEB-INF/jsp/datapool/data_detail.jsp", model);
     }
@@ -99,13 +101,13 @@ public class DataPoolController extends BaseController{
     
     @RequestMapping(value="/paramTableHeader", method=RequestMethod.GET)
     public JsonData paramTableHeader(String paramId) {
-    	List<DataCell> headers = dataPoolService.listParamTableHeader(paramId);
+    	List<ParamTableValue> headers = dataPoolService.listParamTableHeader(paramId);
     	return JsonData.success(headers);
     }
     
     @RequestMapping(value="/paramTableValues", method=RequestMethod.GET)
     public JsonData paramTableValues(String paramId) {
-    	List<DataCell> values = dataPoolService.listParamTableValues(paramId);
+    	List<ParamTableValue> values = dataPoolService.listParamTableValues(paramId);
     	return JsonData.success(values);
     }
     
@@ -117,7 +119,7 @@ public class DataPoolController extends BaseController{
         int curPage = start/length + 1;
         int pageSize = length;
 
-        Page<DataCell> cells = dataPoolService.pageParamTableValues(curPage, pageSize, paramId);
+        Page<ParamTableValue> cells = dataPoolService.pageParamTableValues(curPage, pageSize, paramId);
         DataTableSource dts = convertToDataTableSource(draw, cells);
         return new JsonData(dts);
     }

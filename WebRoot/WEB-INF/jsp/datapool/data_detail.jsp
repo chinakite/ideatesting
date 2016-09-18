@@ -43,7 +43,7 @@
         window.dataPoolPageVars || (window.dataPoolPageVars = {});
         commonVars.ctx = '<idp:ctx/>';
         dataPoolPageVars.projectId = '${project.id}';
-
+        dataPoolPageVars.paramId = '${paramId}';
     </script>
 </head>
 <body>
@@ -251,6 +251,13 @@
     </div>
 </div>
 <script type="text/javascript" src='<idp:url value="/js/datapool/ideatesting-tableparam.js"/>'></script>
+
+<script id="tableParamHeaderTmpl" type="text/html">
+    {{each cells as cell}}
+    <th>{{cell.value}}</th>
+    {{/each}}
+    <th>操作</th>
+</script>
 
 <script id="sheetSelectorTmpl" type="text/html">
     {{each sheets as sheet i}}
