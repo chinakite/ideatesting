@@ -350,7 +350,7 @@ public class DataPoolService {
 
     @IdeaJdbcTx
 	public Page pageParamTableValues(int curPage, int pageSize, String paramId) {
-		List<ParamTableValue> cells = dataPoolDao.listParamTableValues(paramId, curPage, pageSize);
+		List<ParamTableValue> cells = dataPoolDao.listParamTableValues(paramId, curPage-1, pageSize);
 
         Map<Integer, List<ParamTableValue>> tempResult = new HashMap<Integer, List<ParamTableValue>>();
 
@@ -374,7 +374,7 @@ public class DataPoolService {
         page.setCurrentPage(curPage);
         page.setData(result);
         page.setPageSize(pageSize);
-        long rowCount = dataPoolDao.countParamTableRow(paramId);
+        int rowCount = dataPoolDao.countParamTableRow(paramId);
         page.setTotalRecord(rowCount);
 		return page;
 	}

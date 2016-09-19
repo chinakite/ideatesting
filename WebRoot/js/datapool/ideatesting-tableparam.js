@@ -105,24 +105,24 @@ $(document).ready(function(){
 
             for(var i=0; i<header.length; i++) {
                 dtColumns.push({});
-                dtColumnDefs.push({
+                (function(index){dtColumnDefs.push({
                     "targets": [i+1],
                     "render": function(data, type, full) {
-                        var displayText = full[i];
+                        var displayText = full[index].value;
                         if(displayText) {
                             return displayText;
                         }else{
                             return '';
                         }
                     }
-                });
+                })})(i);
             }
 
             dtColumns.push({});
             dtColumnDefs.push({
                 "targets": [header.length + 1],
                 "render": function(data, type, full) {
-                    var html = '<a href=\'' + commonVars.ctx + '/project/' + dataPoolPageVars.projectId + '/dataDetailPage?paramId=' + full.id + '\' target="_blank">查看</a> ';
+                    var html = '<a href=\'' + commonVars.ctx + '/project/' + dataPoolPageVars.projectId + '/dataDetailPage?paramId=' + full.id + '\' target="_blank">编辑</a> ';
                     html += '<span class="small">|</span> ';
                     html += '<a onclick="IDEATESTING.scriptlib.parseScript(\'' + full.id + '\');">删除</a>';
                     return html;

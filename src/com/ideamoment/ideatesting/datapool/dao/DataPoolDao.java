@@ -44,8 +44,9 @@ public class DataPoolDao {
 				       .listTo(ParamTableValue.class);
 	}
 
-	public long countParamTableRow(String paramId) {
+	public int countParamTableRow(String paramId) {
 		String sql = "select max(C_ROW_NO) from T_PARAM_TABLE where C_PARAM_ID = :paramId";
-		return (Long)IdeaJdbc.query(sql).setParameter("paramId", paramId).uniqueValue();
+		int maxRowNo = (Integer)IdeaJdbc.query(sql).setParameter("paramId", paramId).uniqueValue();
+		return maxRowNo + 1;
 	}
 }
