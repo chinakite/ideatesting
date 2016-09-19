@@ -11,21 +11,20 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class JdbcRunContext implements RunContext {
 
+	private ConcurrentHashMap context = new ConcurrentHashMap();
+	
     @Override
     public String resolveValue(List<ParamMethod> paramMethods) {
         Object curObj = context;
 
         for(ParamMethod method : paramMethods) {
             if(method.getType() == ParamValueType.PROP) {
-                PropertyMethod propMethod = (PropertyMethod)method;
-                String propName = propMethod.getInputParam1();
-                String aliasName = propMethod.getInputParam2();
-
-                curObj = resolvePropertyValue(curObj, propName, aliasName);
+                throw new IllegalArgumentException("Prop method is unsupported in JdbcRunContext.");
             }else if(method.getType() == ParamValueType.RAND){
                 RandomMethod randMethod = (RandomMethod)method;
                 String propName = randMethod.getDataName();
                 String aliasName = randMethod.getAliasName();
+                
                 curObj = resolveRandomValue(curObj, propName, aliasName);
             }else if(method.getType() == ParamValueType.SEQ){
                 SequenceMethod seqMethod = (SequenceMethod)method;
@@ -46,11 +45,25 @@ public class JdbcRunContext implements RunContext {
             }
         }
 
-        return null;
+        if(curObj != null) {
+        	return curObj.toString();
+        }else{
+        	return "";
+        }
     }
 
-    @Override
-    public void setContext(ConcurrentHashMap concurrentHashMap) {
+    private Object resolveSequenceValue(Object curObj, String propName, String aliasName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	private Object resolveRandomValue(Object curObj, String propName, String aliasName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+    public void setContext(ConcurrentHashMap context) {
+    	this.context = context;
     }
 }
