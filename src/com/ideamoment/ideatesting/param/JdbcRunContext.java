@@ -66,24 +66,16 @@ public class JdbcRunContext implements RunContext {
     }
 
     private Object resolvePropertyValue(Object curObj, String propName, String aliasName) {
-        try {
-            Object retObj = PropertyUtils.getProperty(curObj, propName);
-            if(aliasName != null) {
-                context.put(aliasName, retObj);
-            }
-            return retObj;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+    	HashMap obj = (HashMap)curObj;
+        Object retObj = obj.get(propName);
+        if(aliasName != null) {
+            context.put(aliasName, retObj);
         }
-        return null;
+        return retObj;
     }
 
     private Object resolveSequenceValue(Object curObj, String propName, String aliasName) {
-        IdeaJdbc.beginTransaction();
+//        IdeaJdbc.beginTransaction();
         String projectId = (String)context.get("projectId");
 
         String sql = "select * from t_param where C_PROJECT_ID = :projectId and C_VAR_NAME = :varName";
@@ -115,12 +107,16 @@ public class JdbcRunContext implements RunContext {
             }
         }
 
-        IdeaJdbc.endTransaction();
+        if(aliasName != null) {
+            context.put(aliasName, resultObj);
+        }
+        
+//        IdeaJdbc.endTransaction();
         return resultObj;
 	}
 
 	private Object resolveRandomValue(Object curObj, String propName, String aliasName) {
-        IdeaJdbc.beginTransaction();
+//        IdeaJdbc.beginTransaction();
         String projectId = (String)context.get("projectId");
 
         String sql = "select * from t_param where C_PROJECT_ID = :projectId and C_VAR_NAME = :varName";
@@ -149,7 +145,11 @@ public class JdbcRunContext implements RunContext {
             }
         }
 
-        IdeaJdbc.endTransaction();
+        if(aliasName != null) {
+            context.put(aliasName, resultObj);
+        }
+        
+//        IdeaJdbc.endTransaction();
         return resultObj;
 	}
 

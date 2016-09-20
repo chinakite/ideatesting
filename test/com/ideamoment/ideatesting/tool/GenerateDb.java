@@ -42,7 +42,8 @@ public class GenerateDb {
 //                    SchemaExecution.class,
 //                    Param.class,
 //                    ParamListValue.class,
-                    ParamTableValue.class
+//                    ParamTableValue.class,
+        		    ParamUsedLog.class
                 };
 
         for(Class clz : cls) {

@@ -121,6 +121,7 @@ public class SchemaService {
             ConcurrentHashMap context = new ConcurrentHashMap();
             context.put("schemaExecutionId", schemaExecution.getId());
             context.put("projectId", schema.getProjectId());
+            runContext.setContext(context);
 
             DefaultCaseRunner runner = new DefaultCaseRunner(runContext);
 

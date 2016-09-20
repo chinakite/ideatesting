@@ -7,8 +7,8 @@ case login {
     wait 2000;
     assert "#freename" exists;
     assert "#freepassword" exists;
-    input "ideacaserunner@sina.com" to "#freename";
-    input "IdeaCaseRunner1" to "#freepassword";
+    input $seq("testData1", "user").username to "#freename";
+    input $ref("user").password to "#freepassword";
     click ".loginBtn";
     click ".wrWriteBtn a" when ".wrWriteBtn a" exists timeout 5000;
 };
