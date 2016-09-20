@@ -10,9 +10,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.ideamoment.caserunner.runner.MemoryRunContext;
 import com.ideamoment.caserunner.runner.RunContext;
+import com.ideamoment.ideatesting.param.JdbcRunContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -115,9 +117,12 @@ public class SchemaService {
             Env env = new Env();
             env.setBrowser(BrowserType.CHROME);
 
-            RunContext context = new MemoryRunContext();
+            RunContext runContext = new JdbcRunContext();
+            ConcurrentHashMap context = new ConcurrentHashMap();
+            context.put("schemaExecutionId", schemaExecution.getId());
+            context.put("projectId", schema.getProjectId());
 
-            DefaultCaseRunner runner = new DefaultCaseRunner(context);
+            DefaultCaseRunner runner = new DefaultCaseRunner(runContext);
 
             RunNode hub = schemaDao.queryHubBySchema(id);
             if(hub == null) {

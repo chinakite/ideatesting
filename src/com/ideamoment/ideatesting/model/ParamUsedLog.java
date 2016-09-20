@@ -19,6 +19,9 @@ public class ParamUsedLog extends HistoriableEntity {
 	@Property(dataItem="C_SCHEMA_EXECUTION_ID", type=DataItemType.VARCHAR, length=32)
 	private String schemaExecutionId;
 
+	@Property(dataItem="C_ROW_NO", type=DataItemType.INT)
+	private int rowNo;
+
 	public String getParamId() {
 		return paramId;
 	}
@@ -34,6 +37,12 @@ public class ParamUsedLog extends HistoriableEntity {
 	public void setSchemaExecutionId(String schemaExecutionId) {
 		this.schemaExecutionId = schemaExecutionId;
 	}
-	
-	
+
+	public int getRowNo() {
+		return rowNo;
+	}
+
+	public void setRowNo(int rowNo) {
+		this.rowNo = rowNo;
+	}
 }
