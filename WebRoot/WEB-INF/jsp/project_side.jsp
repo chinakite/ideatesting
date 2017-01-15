@@ -74,7 +74,7 @@
                                         <!--Menu list item-->
                                         <li id="menu_schema">
                                             <a href="<idp:ctx/>/project/${project.id}/schemaPage">
-                                                <i class="demo-psi-boot-2"></i>
+                                                <i class="demo-psi-tactic"></i>
                                                 <span class="menu-title">
                                                     <strong>测试方案</strong>
                                                 </span>
@@ -84,7 +84,7 @@
                                         <!--Menu list item-->
                                         <li id="menu_runcase">
                                             <a href="<idp:ctx/>/project/${project.id}/casePage">
-                                                <i class="demo-psi-tactic"></i>
+                                                <i class="demo-psi-boot-2"></i>
                                                 <span class="menu-title">
                                                     <strong>用例</strong>
                                                 </span>
