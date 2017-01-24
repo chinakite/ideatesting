@@ -6,8 +6,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录 | IDEA Testing</title>
-    
+    <title>注册 | IDEATESTING</title>
+
+
     <!--STYLESHEET-->
     <!--=================================================-->
 
@@ -30,8 +31,11 @@
 
     <!--Magic Checkbox [ OPTIONAL ]-->
     <link href='<idp:url value="/plugins/magic-check/css/magic-check.min.css"/>' rel="stylesheet">
-    
-    
+
+
+
+
+
     
     <!--JAVASCRIPT-->
     <!--=================================================-->
@@ -53,49 +57,66 @@
     <script src='<idp:url value="/js/nifty.min.js"/>'></script>
 
 
+
+
+
+
     <!--=================================================-->
     
     <!--Background Image [ DEMONSTRATION ]-->
     <script src='<idp:url value="/plugins/nifty/js/bg-images.js"/>'></script>
 
-    
 </head>
+
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
 
 <body>
 	<div id="container" class="cls-container">
+		
 		
 		<!-- BACKGROUND IMAGE -->
 		<!--===================================================-->
 		<div id="bg-overlay"></div>
 		
 		
-		<!-- LOGIN FORM -->
+		<!-- REGISTRATION FORM -->
 		<!--===================================================-->
 		<div class="cls-content">
-		    <div class="cls-content-sm panel">
+		    <div class="cls-content-lg panel">
 		        <div class="panel-body">
 		            <div class="mar-ver pad-btm">
-		                <h3 class="h4 mar-no">Account Login</h3>
-		                <p class="text-muted">Sign In to your account</p>
+		                <h3 class="h4 mar-no">Create a New Account</h3>
+		                <p class="text-muted">Come join the Nifty community! Let's set up your account.</p>
 		            </div>
-		            <form action="index.html">
-		                <div class="form-group">
-		                    <input type="text" class="form-control" placeholder="用户名" autofocus>
-		                </div>
-		                <div class="form-group">
-		                    <input type="password" class="form-control" placeholder="密码">
+		            <form action="pages-login.html">
+		                <div class="row">
+		                    <div class="col-sm-6">
+		                        <div class="form-group">
+		                            <input type="text" class="form-control" placeholder="Full name" name="name">
+		                        </div>
+		                        <div class="form-group">
+		                            <input type="text" class="form-control" placeholder="邮箱" name="email">
+		                        </div>
+		                    </div>
+		                    <div class="col-sm-6">
+		                        <div class="form-group">
+		                            <input type="text" class="form-control" placeholder="用户名" name="username">
+		                        </div>
+		                        <div class="form-group">
+		                            <input type="password" class="form-control" placeholder="密码" name="password">
+		                        </div>
+		                    </div>
 		                </div>
 		                <div class="checkbox pad-btm text-left">
 		                    <input id="demo-form-checkbox" class="magic-checkbox" type="checkbox">
-		                    <label for="demo-form-checkbox">记住我</label>
+		                    <label for="demo-form-checkbox">我同意遵守 <a href="#" class="btn-link">《用户协议》、《隐私政策》及《Cookie 政策》。</a></label>
 		                </div>
-		                <button class="btn btn-primary btn-lg btn-block" type="submit">登&nbsp;&nbsp;录</button>
+		                <button class="btn btn-primary btn-block" type="submit">注&nbsp;&nbsp;册</button>
 		            </form>
 		        </div>
-		
 		        <div class="pad-all">
-		            <a href="pages-password-reminder.html" class="btn-link mar-rgt">忘记密码 ?</a>
-		            <a href='<idp:url value="/register"/>' class="btn-link mar-lft">注册</a>
+		            已有账号 ? <a href='<idp:url value="/login"/>' class="btn-link mar-rgt">前往登录</a>
 		
 		            <div class="media pad-top bord-top">
 		                <div class="pull-right">
@@ -103,8 +124,8 @@
 		                    <a href="#" class="pad-rgt"><i class="demo-psi-twitter icon-lg text-info"></i></a>
 		                    <a href="#" class="pad-rgt"><i class="demo-psi-google-plus icon-lg text-danger"></i></a>
 		                </div>
-		                <div class="media-body text-left">
-		                    其他账号登录
+		                <div class="media-body text-left text-muted">
+		                    使用其他账号注册
 		                </div>
 		            </div>
 		        </div>
@@ -135,6 +156,7 @@
 	</div>
 	<!--===================================================-->
 	<!-- END OF CONTAINER -->
-</body>
 
+
+		</body>
 </html>

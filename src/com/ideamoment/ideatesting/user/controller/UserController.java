@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ideamoment.ideatesting;
+package com.ideamoment.ideatesting.user.controller;
 
 import java.util.HashMap;
 
@@ -15,17 +15,26 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-public class LoginController {
+public class UserController {
 	/**
      * 首页
      * 
      * @return
      */
-    @RequestMapping(value="/loginPage", method=RequestMethod.GET)
-    public ModelAndView index() {
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public ModelAndView toLoginPage() {
     	HashMap<String, Object> model = new HashMap<String, Object>();
     	return new ModelAndView("/login.jsp", model);
     }
     
-    
+    /**
+     * 首页
+     * 
+     * @return
+     */
+    @RequestMapping(value="/register", method=RequestMethod.GET)
+    public ModelAndView toRegisterPage() {
+    	HashMap<String, Object> model = new HashMap<String, Object>();
+    	return new ModelAndView("/register.jsp", model);
+    }
 }
